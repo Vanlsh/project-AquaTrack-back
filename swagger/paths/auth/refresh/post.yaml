@@ -1,0 +1,63 @@
+tags:
+  - Auth
+summary: Refresh session
+operationId: refreshSession
+description: 'Refresh session'
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Successfully refreshed a session!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully refreshed a session!
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: iqwxK1cJJT+GBPLKWouzPhj2www6iirnMFExdZmA
+  '401':
+    description: |
+      - Session not found
+      - Session token expired
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: UnauthorizedError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  oneOf:
+                    - type: string
+                      example: Session not found
+                    - type: string
+                      example: Session token expired

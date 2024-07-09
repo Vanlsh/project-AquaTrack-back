@@ -1,0 +1,22 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: AquaTrack API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: >
+    This is a documentation of AquaTrack app tags
+tags:
+  - name: Water
+    description: Operations about water.
+  - name: Users
+    description: Users operations.
+servers:
+  - url: http://localhost:3000
+# paths:
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
