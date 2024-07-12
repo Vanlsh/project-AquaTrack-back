@@ -1,0 +1,55 @@
+tags:
+  - Water
+summary: Get monthly water consumption for a user
+operationId: getMonthlyWater
+description: 'Get monthly water consumption for a user'
+security:
+  - bearerAuth: []
+parameters:
+  - name: date
+    in: query
+    required: true
+    schema:
+      type: string
+      format: date
+      example: 1720717617
+responses:
+  '200':
+    description: Successful response
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    example: 1720717617
+                  dailyAmount:
+                    type: string
+                    example: 50
+                  dailyRate:
+                    type: string
+                    example: 3
+  '401':
+    $ref: ../../../components/responses/water/401.yaml
+  '404':
+    description: Not found.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              example: []
+            dailyAmount:
+              type: string
+              example: 0
+            dailyRate:
+              type: string
+              example: 0

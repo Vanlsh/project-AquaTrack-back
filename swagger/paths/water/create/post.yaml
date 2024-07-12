@@ -1,0 +1,36 @@
+tags:
+  - Water
+summary: Add water
+operationId: addWater
+description: 'Add water'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - amount
+          - date
+          - norm
+        properties:
+          amount:
+            type: string
+            example: 50
+            description: 'Amount of water in milliliters'
+          date:
+            type: string
+            example: 1720717617
+          norm:
+            type: string
+            example: 1.8
+            description: 'Water rate in liters'
+responses:
+  '201':
+    $ref: ../../../components/responses/water/create/201.yaml
+  '400':
+    $ref: ../../../components/responses/water/400.yaml
+  '401':
+    $ref: ../../../components/responses/water/401.yaml

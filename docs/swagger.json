@@ -16,19 +16,640 @@
   ],
   "tags": [
     {
-      "name": "Liquid",
-      "description": "Operations about liquid."
+      "name": "Users",
+      "description": "Users operations."
     },
     {
-      "name": "Auth",
-      "description": "Auth operations."
+      "name": "Water",
+      "description": "Operations about water."
     }
   ],
+  "paths": {
+    "/water": {
+      "post": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Add water",
+        "operationId": "addWater",
+        "description": "Add water",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "amount",
+                  "date",
+                  "norm"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": "string",
+                    "example": 50,
+                    "description": "Amount of water in milliliters"
+                  },
+                  "date": {
+                    "type": "string",
+                    "example": 1720717617
+                  },
+                  "norm": {
+                    "type": "string",
+                    "example": 1.8,
+                    "description": "Water rate in liters"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/201"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/water/{id}": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get the injected amount of water",
+        "operationId": "getWater",
+        "description": "Get the injected amount of water",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "60d0fe4f5311236168a109ca"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/200-g"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Updated the entered amount of water",
+        "operationId": "editWater",
+        "description": "Updated the entered amount of water",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "60d0fe4f5311236168a109ca"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "anyOf": [
+                  {
+                    "required": [
+                      "amount"
+                    ],
+                    "properties": {
+                      "amount": {
+                        "type": "string",
+                        "example": 100
+                      }
+                    }
+                  },
+                  {
+                    "required": [
+                      "date"
+                    ],
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "example": 1720717617
+                      }
+                    }
+                  },
+                  {
+                    "required": [
+                      "norm"
+                    ],
+                    "properties": {
+                      "norm": {
+                        "type": "string",
+                        "example": 1.8
+                      }
+                    }
+                  },
+                  {
+                    "required": [
+                      "amount",
+                      "date",
+                      "norm"
+                    ],
+                    "properties": {
+                      "amount": {
+                        "type": "string",
+                        "example": 100
+                      },
+                      "date": {
+                        "type": "string",
+                        "example": 1720717617
+                      },
+                      "norm": {
+                        "type": "string",
+                        "example": 1.8
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/200-u"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Delete the entered amount of water",
+        "operationId": "deleteWater",
+        "description": "Delete the entered amount of water",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "60d0fe4f5311236168a109ca"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/200-d"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/water/day": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get daily water consumption for a user",
+        "operationId": "getDailyWater",
+        "description": "Get daily water consumption for a user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": 1720717617
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "60d0fe4f5311236168a109ca"
+                          },
+                          "amount": {
+                            "type": "string",
+                            "example": 50
+                          },
+                          "date": {
+                            "type": "string",
+                            "example": 1720717617
+                          },
+                          "norm": {
+                            "type": "string",
+                            "example": 1.8
+                          },
+                          "percentage": {
+                            "type": "string",
+                            "example": 3
+                          },
+                          "owner": {
+                            "type": "string",
+                            "example": "667c76e3e0564013ee021319"
+                          }
+                        }
+                      }
+                    },
+                    "dailyServings": {
+                      "type": "string",
+                      "example": 1
+                    },
+                    "dailyRate": {
+                      "type": "string",
+                      "example": 3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "example": []
+                    },
+                    "dailyServings": {
+                      "type": "string",
+                      "example": 0
+                    },
+                    "dailyRate": {
+                      "type": "string",
+                      "example": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/water/month": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get monthly water consumption for a user",
+        "operationId": "getMonthlyWater",
+        "description": "Get monthly water consumption for a user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": 1720717617
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "example": 1720717617
+                          },
+                          "dailyAmount": {
+                            "type": "string",
+                            "example": 50
+                          },
+                          "dailyRate": {
+                            "type": "string",
+                            "example": 3
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "example": []
+                    },
+                    "dailyAmount": {
+                      "type": "string",
+                      "example": 0
+                    },
+                    "dailyRate": {
+                      "type": "string",
+                      "example": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Successfully add water",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "60d0fe4f5311236168a109ca"
+                },
+                "amount": {
+                  "type": "string",
+                  "example": 50
+                },
+                "date": {
+                  "type": "string",
+                  "example": 1720717617
+                },
+                "norm": {
+                  "type": "string",
+                  "example": 1.8
+                },
+                "percentage": {
+                  "type": "string",
+                  "example": 3
+                },
+                "owner": {
+                  "type": "string",
+                  "example": "667c76e3e0564013ee021319"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Invalid input.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "The error message.",
+                  "example": "Error from Joi or other validation library"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized, token is missing or invalid.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "The error message.",
+                  "example": "Not authorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not found.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "200-g": {
+        "description": "Successfully get water",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "60d0fe4f5311236168a109ca"
+                },
+                "amount": {
+                  "type": "string",
+                  "example": 50
+                },
+                "date": {
+                  "type": "string",
+                  "example": 1720717617
+                },
+                "norm": {
+                  "type": "string",
+                  "example": 1.8
+                },
+                "percentage": {
+                  "type": "string",
+                  "example": 3
+                },
+                "owner": {
+                  "type": "string",
+                  "example": "667c76e3e0564013ee021319"
+                }
+              }
+            }
+          }
+        }
+      },
+      "200-d": {
+        "description": "Successfully delete water",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "60d0fe4f5311236168a109ca"
+                },
+                "amount": {
+                  "type": "string",
+                  "example": 50
+                },
+                "date": {
+                  "type": "string",
+                  "example": 1720717617
+                },
+                "norm": {
+                  "type": "string",
+                  "example": 1.8
+                },
+                "percentage": {
+                  "type": "string",
+                  "example": 3
+                },
+                "owner": {
+                  "type": "string",
+                  "example": "667c76e3e0564013ee021319"
+                }
+              }
+            }
+          }
+        }
+      },
+      "200-u": {
+        "description": "Successfully update water",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "60d0fe4f5311236168a109ca"
+                },
+                "amount": {
+                  "type": "string",
+                  "example": 100
+                },
+                "date": {
+                  "type": "string",
+                  "example": 1720717617
+                },
+                "norm": {
+                  "type": "string",
+                  "example": 1.8
+                },
+                "percentage": {
+                  "type": "string",
+                  "example": 6
+                },
+                "owner": {
+                  "type": "string",
+                  "example": "667c76e3e0564013ee021319"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
