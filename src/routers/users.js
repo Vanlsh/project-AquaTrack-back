@@ -30,11 +30,11 @@ router.post('/login', validateBody(loginUserSchema), login);
 
 
 //refreshTokens
-router.post('/refresh', checkAuth, refreshTokens);
+router.post('/refresh', refreshTokens);
 
 
 //logout
-router.post('/logout', checkAuth, logout);
+router.post('/logout', logout);
 
 
 //currentUser

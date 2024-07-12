@@ -7,7 +7,7 @@ import User from '../db/modules/user.js';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import Jimp from 'jimp';
-import mail from '../mail/mail.js'
+import mail from '../mail/mail.js';
 import { registerUserSchema, loginUserSchema } from '../db/modules/user.js';
 
 export const register = async (req, res, next) => {
@@ -37,8 +37,6 @@ export const register = async (req, res, next) => {
     });
 
     const { subscription } = newUser;
-
-    // await mail.sendMail(email, verificationToken);
 
     res.status(201).json({
       user: {
@@ -70,16 +68,17 @@ export const login = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, existedUser.password);
     if (!isMatch) throw HttpError(401, 'Email or password is wrong');
 
-    if (!existedUser.verify) {
-      return res.status(401).json({ message: 'Please verify your email' });
-    }
+    // if (!existedUser.verify) {
+    //   return res.status(401).json({ message: 'Please verify your email' });
+
+    // }
 
     const token = jwt.sign({ id: existedUser._id }, process.env.JWT_SECRET, {
       expiresIn: '12h',
     });
 
     await User.findByIdAndUpdate(existedUser._id, { token });
-
+    // await mail.sendMail(email, token);
     res.status(200).json({
       token,
       user: {
@@ -104,24 +103,33 @@ export const logout = async (req, res, next) => {
 
 export const currentUser = async (req, res, next) => {
   try {
+    const {
+      email,
+      name,
+      weight,
+      dailyActiveTime,
+      dailyWaterConsumption,
+      gender,
+      photo,
+    } = req.user;
+
     res.status(200).json({
-      email: req.user.email,
-      name: req.user.name,
-      weight: req.user.weight,
-      dailyActiveTime: req.user.dailyActiveTime,
-      dailyWaterConsumption: req.user.dailyWaterConsumption,
-      gender: req.user.gender,
-      photo: req.user.photo,
+      email,
+      name,
+      weight,
+      dailyActiveTime,
+      dailyWaterConsumption,
+      gender,
+      photo,
     });
   } catch (error) {
     next(error);
   }
-}; 
+};
 
 export const updateUser = async (req, res, next) => {
   try {
     const {
-      email,
       name,
       weight,
       dailyActiveTime,
@@ -132,7 +140,6 @@ export const updateUser = async (req, res, next) => {
     const { id } = req.user;
 
     const updatedData = {
-      ...(email && { email }),
       ...(name && { name }),
       ...(weight && { weight }),
       ...(dailyActiveTime && { dailyActiveTime }),
@@ -141,7 +148,10 @@ export const updateUser = async (req, res, next) => {
       ...(photo && { photo }),
     };
 
-    const result = await User.findByIdAndUpdate(id, updatedData, { new: true });
+    const result = await User.findByIdAndUpdate(id, updatedData, {
+      new: true,
+      select: 'name weight dailyActiveTime dailyWaterConsumption gender photo',
+    });
 
     if (!result) throw new HttpError(404, 'User not found');
 
@@ -207,23 +217,33 @@ export const uploadAvatar = async (req, res, next) => {
 
     await fs.mkdir(outputDir, { recursive: true });
     await fs.rename(tempFilePath, outputFilePath);
+    const { id } = req.user;
+    const photo = `/avatars/${filename}`;
+    const updatedData = {
+      ...(photo && { photo }),
+    };
+    
+    const result = await User.findByIdAndUpdate(id, updatedData, {
+      new: true,
+      select: 'photo',
+    });
 
-    const avatarURL = `/avatars/${filename}`;
-    const result = await User.findByIdAndUpdate(
-      req.user.id,
-      { avatarURL },
-      { new: true },
-    );
-
-    res.status(200).json({ avatarURL: result.avatarURL });
+    res.status(200).json(result );
   } catch (error) {
     next(error);
   }
 };
 
+
 const generateTokens = (user) => {
-  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_REFRESH_SECRET, { expiresIn: '5d' });
+  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+  const refreshToken = jwt.sign(
+    { id: user._id },
+    process.env.JWT_REFRESH_SECRET,
+    { expiresIn: '5d' },
+  );
 
   return { accessToken, refreshToken };
 };
@@ -236,23 +256,27 @@ export const refreshTokens = async (req, res, next) => {
       throw HttpError(401, 'Refresh token is required');
     }
 
-    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, async (err, decoded) => {
-      if (err) {
-        return next(HttpError(401, 'Invalid refresh token'));
-      }
+    jwt.verify(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET,
+      async (err, decoded) => {
+        if (err) {
+          return next(HttpError(401, 'Invalid refresh token'));
+        }
 
-      const user = await User.findById(decoded.id);
+        const user = await User.findById(decoded.id);
 
-      if (!user) {
-        return next(HttpError(401, 'User not found'));
-      }
+        if (!user) {
+          return next(HttpError(401, 'User not found'));
+        }
 
-      const tokens = generateTokens(user);
+        const tokens = generateTokens(user);
 
-      await User.findByIdAndUpdate(user._id, { token: tokens.accessToken });
+        await User.findByIdAndUpdate(user._id, { token: tokens.accessToken });
 
-      res.status(200).json(tokens);
-    });
+        res.status(200).json(tokens);
+      },
+    );
   } catch (error) {
     next(error);
   }

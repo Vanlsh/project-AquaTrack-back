@@ -26,7 +26,12 @@ export const checkAuth = async (req, res, next) => {
         req.user = {
           id: decoded.id,
           email: user.email,
-          subscription: user.subscription,
+          name: user.name,
+          weight: user.weight,
+          dailyActiveTime: user.dailyActiveTime,
+          dailyWaterConsumption: user.dailyWaterConsumption,
+          gender: user.gender,
+          photo: user.photo,
         };
 
         next();
