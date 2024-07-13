@@ -30,10 +30,10 @@ responses:
                     type: string
                     example: 1720717617
                   dailyAmount:
-                    type: string
+                    type: number
                     example: 50
                   dailyRate:
-                    type: string
+                    type: number
                     example: 3
   '401':
     $ref: ../../../components/responses/water/401.yaml
@@ -48,8 +48,8 @@ responses:
               type: array
               example: []
             dailyAmount:
-              type: string
+              type: number
               example: 0
             dailyRate:
-              type: string
+              type: number
               example: 0
