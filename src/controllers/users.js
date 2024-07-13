@@ -20,33 +20,36 @@ export const register = async (req, res, next) => {
       .join(', ');
     return next(HttpError(400, errorMessage));
   }
-  try {
-    const { email, password } = req.body;
-    const existedUser = await User.findOne({ email });
-    if (existedUser) throw HttpError(409, 'Email in use');
 
-    const hashPassword = await bcrypt.hash(password, 10);
-    const generatedAvatar = gravatar.url(email);
-    const verificationToken = crypto.randomUUID();
+  const { email, password } = req.body;
+  const existedUser = await User.findOne({ email });
+  if (existedUser) throw HttpError(409, 'Email in use');
 
-    const newUser = await User.create({
+  const hashPassword = await bcrypt.hash(password, 10);
+  const generatedAvatar = gravatar.url(email);
+  const verificationToken = crypto.randomUUID();
+
+  const newUser = await User.create({
+    email,
+    password: hashPassword,
+    avatarURL: `http:${generatedAvatar}`,
+    verificationToken,
+  });
+
+  const { subscription } = newUser;
+
+  res.status(201).json({
+    user: {
       email,
-      password: hashPassword,
-      avatarURL: `http:${generatedAvatar}`,
-      verificationToken,
-    });
+      subscription,
+    },
+  });
+};
 
-    const { subscription } = newUser;
-
-    res.status(201).json({
-      user: {
-        email,
-        subscription,
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
+const setupSession = (res, session) => {
+  res.cookie('refreshToken', session.refreshToken, {
+    httpOnly: true,
+  });
 };
 
 export const login = async (req, res, next) => {
@@ -60,6 +63,7 @@ export const login = async (req, res, next) => {
       .join(', ');
     return next(HttpError(400, errorMessage));
   }
+
   try {
     const { email, password } = req.body;
     const existedUser = await User.findOne({ email });
@@ -75,6 +79,10 @@ export const login = async (req, res, next) => {
 
     const token = jwt.sign({ id: existedUser._id }, process.env.JWT_SECRET, {
       expiresIn: '12h',
+    });
+
+    res.cookie('refreshToken', 'refreshToken', {
+      httpOnly: true,
     });
 
     await User.findByIdAndUpdate(existedUser._id, { token });
@@ -161,7 +169,6 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
-
 export const verifyEmail = async (req, res, next) => {
   try {
     const { verificationToken } = req.params;
@@ -222,18 +229,17 @@ export const uploadAvatar = async (req, res, next) => {
     const updatedData = {
       ...(photo && { photo }),
     };
-    
+
     const result = await User.findByIdAndUpdate(id, updatedData, {
       new: true,
       select: 'photo',
     });
 
-    res.status(200).json(result );
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
 };
-
 
 const generateTokens = (user) => {
   const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
