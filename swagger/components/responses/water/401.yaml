@@ -4,7 +4,16 @@ content:
     schema:
       type: object
       properties:
+        status:
+          type: number
+          example: 401
         message:
           type: string
-          description: The error message.
-          example: Not authorized
+          example: NotAuthorizedError
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              description: The error message.
+              example: Not authorized

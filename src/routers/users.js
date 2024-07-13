@@ -1,19 +1,61 @@
 import { Router } from 'express';
+import {
+  register,
+  login,
+  logout,
+  currentUser,
+  updateUser,
+  verifyEmail,
+  resendVerifyEmail,
+  uploadAvatar,
+  getUserCount,
+  refreshTokens,
+} from '../controllers/users.js';
+import validateBody from '../helpers/validateBody.js';
+import {
+  loginUserSchema,
+  registerUserSchema,
+  resendVerifySchema,
+} from '../db/modules/user.js';
+import { checkAuth } from '../middlewares/checkAuth.js';
+import uploadMiddleware from '../middlewares/upload.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = Router();
+//register
+router.post(
+  '/register',
+  validateBody(registerUserSchema),
+  ctrlWrapper(register)
+);
 
-router.post('/register');
+//login
+router.post('/login', validateBody(loginUserSchema), ctrlWrapper(login));
 
-router.post('/login');
+//refreshTokens
+router.post('/refresh', ctrlWrapper(refreshTokens));
 
-router.post('/refresh');
+//logout
+router.post('/logout', checkAuth, ctrlWrapper(logout));
 
-router.post('/logout');
+//currentUser
+router.get('/info', checkAuth, ctrlWrapper(currentUser));
 
-router.get('/info');
+//uploadAvatar
+router.patch(
+  '/avatars',
+  checkAuth,
+  uploadMiddleware.single('avatar'),
+  ctrlWrapper(uploadAvatar),
+);
 
-router.patch('/info');
+//updateUser
+router.patch('/info', checkAuth, ctrlWrapper(updateUser));
 
-router.get('/count');
+//getUserCount
+router.get('/count', checkAuth, ctrlWrapper(getUserCount));
+
+router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
+router.post('/verify', validateBody(resendVerifySchema), ctrlWrapper(resendVerifyEmail));
 
 export default router;

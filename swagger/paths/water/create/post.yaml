@@ -17,14 +17,14 @@ requestBody:
           - norm
         properties:
           amount:
-            type: string
+            type: number
             example: 50
             description: 'Amount of water in milliliters'
           date:
             type: string
             example: 1720717617
           norm:
-            type: string
+            type: number
             example: 1.8
             description: 'Water rate in liters'
 responses:
