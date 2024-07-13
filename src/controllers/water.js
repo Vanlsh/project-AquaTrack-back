@@ -7,8 +7,7 @@ import {
 } from '../services/water.js';
 
 export const createWaterController = async (req, res) => {
-  // const data = { ...req.body, userId: req.user.id };
-  const data = { ...req.body };
+  const data = { ...req.body, userId: req.user.id };
 
   const water = await createWater(data);
 
@@ -21,10 +20,9 @@ export const createWaterController = async (req, res) => {
 
 export const getWaterByIdController = async (req, res, next) => {
   const { id } = req.params;
-  // const userId = req.user.id;
+  const userId = req.user.id;
 
-  // const water = await getWaterById(id, userId);
-  const water = await getWaterById(id);
+  const water = await getWaterById(id, userId);
 
   if (!water) {
     next(createHttpError(404, 'Water not found'));
@@ -40,11 +38,10 @@ export const getWaterByIdController = async (req, res, next) => {
 
 export const updateWaterController = async (req, res, next) => {
   const { id } = req.params;
-  // const userId = req.user.id;
+  const userId = req.user.id;
   const data = { ...req.body };
 
-  // const result = await updateWaterById(id, userId, data);
-  const result = await updateWaterById(id, data);
+  const result = await updateWaterById(id, userId, data);
 
   if (!result) {
     next(createHttpError(404, 'Water not found'));
@@ -60,10 +57,9 @@ export const updateWaterController = async (req, res, next) => {
 
 export const deleteWaterController = async (req, res, next) => {
   const { id } = req.params;
-  // const userId = req.user.id;
+  const userId = req.user.id;
 
-  // const water = await deleteWaterById(id, userId);
-  const water = await deleteWaterById(id);
+  const water = await deleteWaterById(id, userId);
 
   if (!water) {
     next(createHttpError(404, 'Water not found'));

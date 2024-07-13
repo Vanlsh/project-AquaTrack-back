@@ -10,8 +10,11 @@ import { validateMongoId } from '../middlewares/validateMongoId.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { createWaterSchema } from '../validation/createWaterSchema.js';
 import { updateWaterSchema } from '../validation/updateWaterSchema.js';
+import { checkAuth } from '../middlewares/checkAuth.js';
 
 const router = Router();
+
+router.use(checkAuth);
 
 router.post(
   '/',

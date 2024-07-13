@@ -1,13 +1,14 @@
 import { WaterCollection } from '../db/models/water.js';
 
 export const createWater = async (payload) => {
-  const { amount, date, norm } = payload;
+  const { amount, date, norm, userId } = payload;
   const percentage = ((amount / (norm * 1000)) * 100).toFixed(2);
   const contact = await WaterCollection.create({
     amount,
     date,
     norm,
     percentage,
+    owner: userId,
   });
 
   const { _id, ...other } = contact._doc;
@@ -16,7 +17,10 @@ export const createWater = async (payload) => {
 };
 
 export const getWaterById = async (waterId, userId) => {
-  const contact = await WaterCollection.findOne({ _id: waterId, userId });
+  const contact = await WaterCollection.findOne({
+    _id: waterId,
+    owner: userId,
+  });
 
   if (!contact) return null;
 
@@ -27,12 +31,11 @@ export const getWaterById = async (waterId, userId) => {
 
 export const updateWaterById = async (
   waterId,
-  // userId,
+  userId,
   payload,
   options = {},
 ) => {
-  // const water = await getWaterById(waterId, userId);
-  const water = await getWaterById(waterId);
+  const water = await getWaterById(waterId, userId);
 
   const {
     amount = water.amount,
@@ -42,18 +45,8 @@ export const updateWaterById = async (
 
   const percentage = ((amount / (norm * 1000)) * 100).toFixed(2);
 
-  // const rawResult = await WaterCollection.findOneAndUpdate(
-  //   { _id: waterId, owner: userId },
-  //   { amount, date, norm, percentage },
-  //   {
-  //     new: true,
-  //     includeResultMetadata: true,
-  //     ...options,
-  //   },
-  // );
-
   const rawResult = await WaterCollection.findOneAndUpdate(
-    { _id: waterId },
+    { _id: waterId, owner: userId },
     { amount, date, norm, percentage },
     {
       new: true,
@@ -72,7 +65,7 @@ export const updateWaterById = async (
 export const deleteWaterById = async (waterId, userId) => {
   const water = await WaterCollection.findOneAndDelete({
     _id: waterId,
-    // owner: userId,
+    owner: userId,
   });
 
   if (!water) return null;
