@@ -1,0 +1,21 @@
+tags:
+  - Water
+summary: Delete the entered amount of water
+operationId: deleteWater
+description: 'Delete the entered amount of water'
+security:
+  - bearerAuth: []
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+      example: 60d0fe4f5311236168a109ca
+responses:
+  '200':
+    $ref: ../../../components/responses/water/delete/200-d.yaml
+  '401':
+    $ref: ../../../components/responses/water/401.yaml
+  '404':
+    $ref: ../../../components/responses/water/404.yaml

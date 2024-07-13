@@ -1,0 +1,21 @@
+tags:
+  - Water
+summary: Get the injected amount of water
+operationId: getWater
+description: 'Get the injected amount of water'
+security:
+  - bearerAuth: []
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+      example: 60d0fe4f5311236168a109ca
+responses:
+  '200':
+    $ref: ../../../components/responses/water/get/200-g.yaml
+  '401':
+    $ref: ../../../components/responses/water/401.yaml
+  '404':
+    $ref: ../../../components/responses/water/404.yaml
