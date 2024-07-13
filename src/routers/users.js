@@ -26,36 +26,36 @@ const router = Router();
 router.post(
   '/register',
   validateBody(registerUserSchema),
-  ctrlWrapper(register),
+  ctrlWrapper(register)
 );
 
 //login
-router.post('/login', validateBody(loginUserSchema), login);
+router.post('/login', validateBody(loginUserSchema), ctrlWrapper(login));
 
 //refreshTokens
-router.post('/refresh', refreshTokens);
+router.post('/refresh', ctrlWrapper(refreshTokens));
 
 //logout
-router.post('/logout', logout);
+router.post('/logout', checkAuth, ctrlWrapper(logout));
 
 //currentUser
-router.get('/info', checkAuth, currentUser);
+router.get('/info', checkAuth, ctrlWrapper(currentUser));
 
 //uploadAvatar
 router.patch(
   '/avatars',
   checkAuth,
   uploadMiddleware.single('avatar'),
-  uploadAvatar,
+  ctrlWrapper(uploadAvatar),
 );
 
 //updateUser
-router.patch('/info', checkAuth, updateUser);
+router.patch('/info', checkAuth, ctrlWrapper(updateUser));
 
 //getUserCount
-router.get('/count', checkAuth, getUserCount);
+router.get('/count', checkAuth, ctrlWrapper(getUserCount));
 
-router.get('/verify/:verificationToken', verifyEmail);
-router.post('/verify', validateBody(resendVerifySchema), resendVerifyEmail);
+router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
+router.post('/verify', validateBody(resendVerifySchema), ctrlWrapper(resendVerifyEmail));
 
 export default router;
