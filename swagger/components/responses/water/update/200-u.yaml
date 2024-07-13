@@ -18,7 +18,7 @@ content:
           example: 1.8
         percentage:
           type: string
-          example: 6
+          example: 5.56
         owner:
           type: string
           example: 667c76e3e0564013ee021319

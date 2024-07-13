@@ -4,21 +4,30 @@ content:
     schema:
       type: object
       properties:
-        id:
+        status:
+          type: number
+          example: 201
+        message:
           type: string
-          example: 60d0fe4f5311236168a109ca
-        amount:
-          type: string
-          example: 50
-        date:
-          type: string
-          example: 1720717617
-        norm:
-          type: string
-          example: 1.8
-        percentage:
-          type: string
-          example: 3
-        owner:
-          type: string
-          example: 667c76e3e0564013ee021319
+          example: Successfully created a water!
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 60d0fe4f5311236168a109ca
+            amount:
+              type: number
+              example: 50
+            date:
+              type: string
+              example: 1720717617
+            norm:
+              type: number
+              example: 1.8
+            percentage:
+              type: number
+              example: 2.78
+            owner:
+              type: string
+              example: 667c76e3e0564013ee021319
