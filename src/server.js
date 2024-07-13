@@ -8,6 +8,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 import router from './routers/index.js';
 
+
 export const setupServer = () => {
   const PORT = env(ENV_VARS.PORT, '3000');
   const app = express();
