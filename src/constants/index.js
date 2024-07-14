@@ -6,6 +6,7 @@ export const ENV_VARS = {
   MONGODB_PASSWORD: 'MONGODB_PASSWORD',
   MONGODB_URL: 'MONGODB_URL',
   MONGODB_DB: 'MONGODB_DB',
+  APP_DOMAIN: 'APP_DOMAIN',
 };
 
 export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');

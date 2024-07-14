@@ -8,13 +8,30 @@ info:
   description: >
     This is a documentation of AquaTrack app tags
 tags:
-  - name: Water
-    description: Operations about water.
   - name: Users
     description: Users operations.
+  - name: Water
+    description: Operations about water.
 servers:
+  - url: https://project-aquatrack-back.onrender.com
   - url: http://localhost:3000
-# paths:
+paths:
+  /water:
+    post:
+      $ref: ../swagger/paths/water/create/post.yaml
+  /water/{id}:
+    get:
+      $ref: ../swagger/paths/water/get/get.yaml
+    patch:
+      $ref: ../swagger/paths/water/update/patch.yaml
+    delete:
+      $ref: ../swagger/paths/water/delete/delete.yaml
+  /water/day/{date}:
+    get:
+      $ref: ../swagger/paths/water/day/get.yaml
+  /water/month/{date}:
+    get:
+      $ref: ../swagger/paths/water/month/get.yaml
 components:
   securitySchemes:
     bearerAuth:

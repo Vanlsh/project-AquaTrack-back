@@ -1,0 +1,22 @@
+type: object
+required:
+  - id
+  - amount
+  - date
+  - norm
+properties:
+  id:
+    type: string
+    example: 60d0fe4f5311236168a109ca
+  amount:
+    type: number
+    example: 50
+  date:
+    type: string
+    example: 1720717617
+  norm:
+    type: number
+    example: 1720717617
+  percentage:
+    type: number
+    example: 2.78

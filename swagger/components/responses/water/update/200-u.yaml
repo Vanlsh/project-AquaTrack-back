@@ -1,0 +1,30 @@
+description: Successfully update water
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: string
+          example: 200
+        message:
+          type: string
+          example: Successfully update a water!
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 6693b609d6192024db757e57
+            amount:
+              type: string
+              example: 100
+            date:
+              type: string
+              example: 1720717617
+            norm:
+              type: string
+              example: 1.8
+            percentage:
+              type: string
+              example: 5.56

@@ -10,7 +10,6 @@ import {
   uploadUserAvatar,
   getUserCountt,
 } from '../services/users.js';
-import { generateTokens } from '../utils/generateTokens.js';
 import HttpError from '../helpers/HttpError.js';
 
 export const register = async (req, res, next) => {

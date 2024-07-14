@@ -1,0 +1,18 @@
+description: Not found.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 404
+        message:
+          type: string
+          example: NotFoundError
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Water not found

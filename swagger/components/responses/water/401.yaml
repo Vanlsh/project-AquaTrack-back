@@ -1,0 +1,19 @@
+description: Unauthorized, token is missing or invalid.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 401
+        message:
+          type: string
+          example: NotAuthorizedError
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              description: The error message.
+              example: Not authorized

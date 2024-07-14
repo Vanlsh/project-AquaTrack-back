@@ -1,0 +1,10 @@
+description: Invalid input.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The error message.
+          example: Error from Joi or other validation library

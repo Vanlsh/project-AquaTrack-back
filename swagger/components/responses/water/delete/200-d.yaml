@@ -1,0 +1,30 @@
+description: Successfully delete water
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: Successfully delete a water!
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 6693b609d6192024db757e57
+            amount:
+              type: number
+              example: 50
+            date:
+              type: string
+              example: 1720717617
+            norm:
+              type: number
+              example: 1.8
+            percentage:
+              type: number
+              example: 2.78
