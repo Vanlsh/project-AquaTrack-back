@@ -11,7 +11,7 @@ parameters:
     required: true
     schema:
       type: string
-      example: 60d0fe4f5311236168a109ca
+      example: 6693b609d6192024db757e57
 responses:
   '200':
     $ref: ../../../components/responses/water/get/200-g.yaml
