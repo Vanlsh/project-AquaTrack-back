@@ -8,10 +8,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 import router from './routers/index.js';
 
-const allowedOrigins = [
-  'https://project-aqua-track-front-23cj.vercel.app',
-  'http://localhost:5173',
-];
+const allowedOrigins = [env(ENV_VARS.APP_DOMAIN), 'http://localhost:5173'];
 
 export const setupServer = () => {
   const PORT = env(ENV_VARS.PORT, '3000');
