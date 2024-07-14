@@ -37,16 +37,16 @@ export const registerUser = async (data) => {
 };
 
 export const loginUser = async (email, password) => {
-  const { error } = loginUserSchema.validate(
-    { email, password },
-    { abortEarly: false },
-  );
-  if (error) {
-    const errorMessage = error.details
-      .map((detail) => detail.message)
-      .join(', ');
-    throw HttpError(400, errorMessage);
-  }
+  // const { error } = loginUserSchema.validate(
+  //   { email, password },
+  //   { abortEarly: false },
+  // );
+  // if (error) {
+  //   const errorMessage = error.details
+  //     .map((detail) => detail.message)
+  //     .join(', ');
+  //   throw HttpError(400, errorMessage);
+  // }
 
   const existedUser = await User.findOne({ email });
   if (!existedUser) throw HttpError(401, 'Email or password is wrong');
@@ -91,7 +91,6 @@ export const updateUserDetails = async (userId, data) => {
 
   return result;
 };
-
 
 export const verifyUserEmail = async (verificationToken) => {
   const user = await User.findOne({ verificationToken });

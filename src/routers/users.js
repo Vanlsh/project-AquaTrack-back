@@ -26,7 +26,7 @@ const router = Router();
 router.post(
   '/register',
   validateBody(registerUserSchema),
-  ctrlWrapper(register)
+  ctrlWrapper(register),
 );
 
 //login
@@ -50,12 +50,17 @@ router.patch(
 );
 
 //updateUser
+// додати валідацію
 router.patch('/info', checkAuth, ctrlWrapper(updateUser));
 
 //getUserCount
 router.get('/count', checkAuth, ctrlWrapper(getUserCount));
 
 router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
-router.post('/verify', validateBody(resendVerifySchema), ctrlWrapper(resendVerifyEmail));
+router.post(
+  '/verify',
+  validateBody(resendVerifySchema),
+  ctrlWrapper(resendVerifyEmail),
+);
 
 export default router;
