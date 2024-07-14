@@ -16,11 +16,28 @@ const allowedOrigins = {
   credentials: true,
 };
 
+const corsOptions = {
+  origin: [
+    'https://project-aqua-track-front.vercel.app',
+    'http://localhost:5173',
+  ],
+  credentials: true,
+  optionSuccessStatus: 200,
+  Headers: true,
+  exposedHeaders: 'Set-Cookie',
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: [
+    'Access-Control-Allow-Origin',
+    'Content-Type',
+    'Authorization',
+  ],
+};
+
 export const setupServer = () => {
   const PORT = env(ENV_VARS.PORT, '3000');
   const app = express();
 
-  app.use(cors(allowedOrigins));
+  app.use(cors(corsOptions));
   app.use(cookieParser());
   app.use(express.json());
 
