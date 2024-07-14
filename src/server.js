@@ -20,17 +20,6 @@ export const setupServer = () => {
   const PORT = env(ENV_VARS.PORT, '3000');
   const app = express();
 
-  // const corsOptions = {
-  //   origin: (origin, callback) => {
-  //     if (allowedOrigins.includes(origin) || !origin) {
-  //       callback(null, true);
-  //     } else {
-  //       callback(new Error('Not allowed by CORS'));
-  //     }
-  //   },
-  //   credentials: true,
-  // };
-
   app.use(cors(allowedOrigins));
   app.use(cookieParser());
   app.use(express.json());

@@ -29,7 +29,6 @@ export const login = async (req, res, next) => {
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
     secure: true,
-    sameSite: 'Strict',
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
   res.status(200).json({
@@ -80,7 +79,6 @@ export const refreshTokens = async (req, res, next) => {
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
     secure: true,
-    sameSite: 'Strict',
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
   res.status(200).json(tokens);
