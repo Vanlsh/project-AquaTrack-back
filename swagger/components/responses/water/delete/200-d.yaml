@@ -9,13 +9,13 @@ content:
           example: 200
         message:
           type: string
-          example: Successfully
+          example: Successfully delete a water!
         data:
           type: object
           properties:
             id:
               type: string
-              example: 60d0fe4f5311236168a109ca
+              example: 6693b609d6192024db757e57
             amount:
               type: number
               example: 50
@@ -27,7 +27,4 @@ content:
               example: 1.8
             percentage:
               type: number
-              example: 3
-            owner:
-              type: string
-              example: 667c76e3e0564013ee021319
+              example: 2.78

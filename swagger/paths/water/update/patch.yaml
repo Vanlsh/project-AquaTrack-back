@@ -28,31 +28,23 @@ requestBody:
             properties:
               date:
                 type: string
-                example: 1720717617
+                example: 1720918800
           - required: ['norm']
             properties:
               norm:
                 type: number
                 example: 1.8
-          - required: ['percentage']
-            properties:
-              percentage:
-                type: number
-                example: 2.78
-          - required: ['amount', 'date', 'percentage']
+          - required: ['amount', 'date']
             properties:
               amount:
                 type: number
                 example: 100
               date:
                 type: string
-                example: 1720717617
+                example: 1720918800
               norm:
                 type: number
                 example: 1.8
-              percentage:
-                type: number
-                example: 2.78
 responses:
   '200':
     $ref: ../../../components/responses/water/update/200-u.yaml
