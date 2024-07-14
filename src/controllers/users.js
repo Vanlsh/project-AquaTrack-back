@@ -10,7 +10,7 @@ import {
   uploadUserAvatar,
   getUserCountt,
 } from '../services/users.js';
-import HttpError from '../helpers/HttpError.js';
+import createHttpError from 'http-errors';
 
 export const register = async (req, res, next) => {
   const newUser = await registerUser(req.body);
@@ -69,7 +69,7 @@ export const resendVerifyEmail = async (req, res, next) => {
 
 export const uploadAvatar = async (req, res, next) => {
   if (!req.file) {
-    throw HttpError(400, 'File not provided');
+    throw createHttpError(400, 'File not provided');
   }
   const updatedUser = await uploadUserAvatar(req.user.id, req.file);
   res.status(200).json(updatedUser);
