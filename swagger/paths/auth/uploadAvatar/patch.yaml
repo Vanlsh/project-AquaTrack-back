@@ -1,0 +1,28 @@
+tags:
+  - Users
+summary: User Avatar
+operationId: userAvatar
+description: 'User Avatar'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - token
+          - avatar
+          properties:
+            token:
+              type: string
+              example: "84279rnc9rq24r"
+            avatar:
+              type: string
+              format: binary
+responses:
+  '200':
+    $ref: ../../../components/responses/auth/uploadAvatar/200.yaml
+  '500':
+    $ref: ../../../components/responses/auth/uploadAvatar/500.yaml

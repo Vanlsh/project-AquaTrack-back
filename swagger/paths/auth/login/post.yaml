@@ -1,6 +1,6 @@
 tags:
-  - Auth
-summary: Log in
+  - Users
+summary: Login User
 operationId: loginUser
 description: 'Log in'
 security:
@@ -11,6 +11,9 @@ requestBody:
     application/json:
       schema:
         type: object
+        required:
+          - email
+          - password
         properties:
           email:
             type: string
@@ -20,14 +23,6 @@ requestBody:
             example: mypassword
 responses:
   '200':
-    description: Successful login
-    content:
-      application/json:
-        schema:
-          $ref: ../../../components/responses/auth/login/200.yaml
-  '401':
-    description: Unauthorized
-    content:
-      application/json:
-        schema:
-          $ref: ../../../components/responses/auth/login/401.yaml
+    $ref: ../../../components/responses/auth/login/200.yaml
+  '500':
+    $ref: ../../../components/responses/auth/login/500.yaml

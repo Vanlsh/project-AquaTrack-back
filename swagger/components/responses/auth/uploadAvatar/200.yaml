@@ -1,0 +1,21 @@
+description: Successfully upload Avatar
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: OK
+        data:
+          type: object
+          properties:
+            _id:
+              type: string
+              example: "6694746"
+            photo:
+              type: string
+              example: "/avatars/IMG.png"

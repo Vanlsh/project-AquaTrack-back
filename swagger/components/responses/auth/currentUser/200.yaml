@@ -1,0 +1,40 @@
+description: Successfully get info
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: OK
+        data:
+          type: object
+          properties:
+          _id:
+            type: string
+            example: "6694027766"
+          email:
+            type: string
+            example: "user@mail"
+          name:
+            type: string
+            example: "User"
+          weight:
+            type: number
+            example: 35
+          dailyActiveTime:
+            type: number
+            example: 2
+          dailyWaterConsumption:
+            type: number
+            example: 1.5
+          gender:
+            type: string
+            example: "Women"
+          photo:
+            type: string
+            nullable: true
+            example: null

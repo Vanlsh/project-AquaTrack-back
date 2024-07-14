@@ -1,0 +1,21 @@
+description: Successfully register
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 201
+        message:
+          type: string
+          example: Created
+        data:
+          type: object
+          properties:
+            user:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "user@mail.com"

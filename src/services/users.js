@@ -2,13 +2,13 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import gravatar from 'gravatar';
-import User from '../db/modules/user.js';
+import User from '../db/models/user.js';
 import Jimp from 'jimp';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import mail from '../mail/mail.js';
 import HttpError from '../helpers/HttpError.js';
-import { registerUserSchema, loginUserSchema } from '../db/modules/user.js';
+import { registerUserSchema, loginUserSchema } from '../helpers/userShema.js';
 import { generateTokens } from '../utils/generateTokens.js';
 
 export const registerUser = async (data) => {
@@ -91,7 +91,6 @@ export const updateUserDetails = async (userId, data) => {
 
   return result;
 };
-
 
 export const verifyUserEmail = async (verificationToken) => {
   const user = await User.findOne({ verificationToken });

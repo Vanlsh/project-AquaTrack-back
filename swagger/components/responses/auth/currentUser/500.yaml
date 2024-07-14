@@ -1,0 +1,16 @@
+description: Fail get info
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 500
+        message:
+          type: string
+          oneOf:
+            - example: "Invalid email or password"
+            - example: "Email is required"
+            - example: "\"password\" is required"
+            - example: "Email or password is wrong"
+

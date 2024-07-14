@@ -1,8 +1,8 @@
 tags:
   - Users
-summary: Register User
-operationId: registerUser
-description: 'Sing up'
+summary: Get count Users
+operationId: countUsers
+description: 'Count'
 security:
   - bearerAuth: []
 requestBody:
@@ -22,7 +22,7 @@ requestBody:
             type: string
             example: mypassword
 responses:
-  '201':
-    $ref: ../../../components/responses/auth/reg/201.yaml
+  '200':
+    $ref: ../../../components/responses/auth/getUserCount/200.yaml
   '500':
-    $ref: ../../../components/responses/auth/reg/500.yaml
+    $ref: ../../../components/responses/auth/getUserCount/500.yaml

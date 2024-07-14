@@ -1,0 +1,15 @@
+description: Fail login
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 500
+        message:
+          type: string
+          oneOf:
+            - example: "Not authorized"
+            - example: "Email is required"
+            - example: "\"password\" is required"
+

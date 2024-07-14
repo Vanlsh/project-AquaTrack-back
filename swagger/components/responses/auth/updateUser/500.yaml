@@ -1,0 +1,12 @@
+description: Fail update
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 500
+        message:
+          type: string
+          oneOf:
+            - example: "Not authorized"
