@@ -28,7 +28,7 @@ export const login = async (req, res, next) => {
   const { user, tokens } = await loginUser(email, password);
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
-    secure: true,
+    // secure: true,
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
   res.status(200).json({
@@ -78,7 +78,7 @@ export const refreshTokens = async (req, res, next) => {
   const tokens = await refreshUserSession(req.cookies.refreshToken);
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
-    secure: true,
+    // secure: true,
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
   res.status(200).json({ token: tokens.accessToken });
