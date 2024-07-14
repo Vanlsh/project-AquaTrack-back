@@ -81,7 +81,7 @@ export const refreshTokens = async (req, res, next) => {
     secure: true,
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
-  res.status(200).json(tokens);
+  res.status(200).json({ token: tokens.accessToken });
 };
 
 export const getUserCount = async (req, res, next) => {
