@@ -49,8 +49,7 @@
                 "type": "object",
                 "required": [
                   "amount",
-                  "date",
-                  "norm"
+                  "date"
                 ],
                 "properties": {
                   "amount": {
@@ -60,7 +59,7 @@
                   },
                   "date": {
                     "type": "string",
-                    "example": 1720717617
+                    "example": 1720918800
                   },
                   "norm": {
                     "type": "number",
@@ -105,7 +104,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "60d0fe4f5311236168a109ca"
+              "example": "6693b609d6192024db757e57"
             }
           }
         ],
@@ -169,7 +168,7 @@
                     "properties": {
                       "date": {
                         "type": "string",
-                        "example": 1720717617
+                        "example": 1720918800
                       }
                     }
                   },
@@ -186,20 +185,8 @@
                   },
                   {
                     "required": [
-                      "percentage"
-                    ],
-                    "properties": {
-                      "percentage": {
-                        "type": "number",
-                        "example": 2.78
-                      }
-                    }
-                  },
-                  {
-                    "required": [
                       "amount",
-                      "date",
-                      "percentage"
+                      "date"
                     ],
                     "properties": {
                       "amount": {
@@ -208,15 +195,11 @@
                       },
                       "date": {
                         "type": "string",
-                        "example": 1720717617
+                        "example": 1720918800
                       },
                       "norm": {
                         "type": "number",
                         "example": 1.8
-                      },
-                      "percentage": {
-                        "type": "number",
-                        "example": 2.78
                       }
                     }
                   }
@@ -259,7 +242,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "60d0fe4f5311236168a109ca"
+              "example": "6693b609d6192024db757e57"
             }
           }
         ],
@@ -276,7 +259,7 @@
         }
       }
     },
-    "/water/day": {
+    "/water/day/{date}": {
       "get": {
         "tags": [
           "Water"
@@ -292,12 +275,11 @@
         "parameters": [
           {
             "name": "date",
-            "in": "query",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date",
-              "example": 1720717617
+              "example": 1720918800
             }
           }
         ],
@@ -309,6 +291,14 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found water!"
+                    },
                     "data": {
                       "type": "array",
                       "items": {
@@ -316,7 +306,7 @@
                         "properties": {
                           "id": {
                             "type": "string",
-                            "example": "60d0fe4f5311236168a109ca"
+                            "example": "6693b609d6192024db757e57"
                           },
                           "amount": {
                             "type": "number",
@@ -324,7 +314,7 @@
                           },
                           "date": {
                             "type": "string",
-                            "example": 1720717617
+                            "example": 1720918800
                           },
                           "norm": {
                             "type": "number",
@@ -333,19 +323,15 @@
                           "percentage": {
                             "type": "number",
                             "example": 2.78
-                          },
-                          "owner": {
-                            "type": "string",
-                            "example": "667c76e3e0564013ee021319"
                           }
                         }
                       }
                     },
-                    "dailyServings": {
+                    "dailyAmount": {
                       "type": "number",
-                      "example": 1
+                      "example": 50
                     },
-                    "dailyRate": {
+                    "dailyPercentage": {
                       "type": "number",
                       "example": 2.78
                     }
@@ -358,33 +344,12 @@
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "description": "Not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "example": []
-                    },
-                    "dailyServings": {
-                      "type": "number",
-                      "example": 0
-                    },
-                    "dailyRate": {
-                      "type": "number",
-                      "example": 0
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/404"
           }
         }
       }
     },
-    "/water/month": {
+    "/water/month/{date}": {
       "get": {
         "tags": [
           "Water"
@@ -400,12 +365,12 @@
         "parameters": [
           {
             "name": "date",
-            "in": "query",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
               "format": "date",
-              "example": 1720717617
+              "example": 1720918800
             }
           }
         ],
@@ -417,22 +382,38 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found water!"
+                    },
                     "data": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "date": {
+                          "id": {
                             "type": "string",
-                            "example": 1720717617
+                            "example": "6693b609d6192024db757e57"
                           },
-                          "dailyAmount": {
+                          "amount": {
                             "type": "number",
                             "example": 50
                           },
-                          "dailyRate": {
+                          "date": {
+                            "type": "string",
+                            "example": 1720918800
+                          },
+                          "norm": {
                             "type": "number",
-                            "example": 3
+                            "example": 1.8
+                          },
+                          "percentage": {
+                            "type": "number",
+                            "example": 2.78
                           }
                         }
                       }
@@ -446,28 +427,7 @@
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "description": "Not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "example": []
-                    },
-                    "dailyAmount": {
-                      "type": "number",
-                      "example": 0
-                    },
-                    "dailyRate": {
-                      "type": "number",
-                      "example": 0
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/404"
           }
         }
       }
@@ -501,7 +461,7 @@
                   "properties": {
                     "id": {
                       "type": "string",
-                      "example": "60d0fe4f5311236168a109ca"
+                      "example": "6693b609d6192024db757e57"
                     },
                     "amount": {
                       "type": "number",
@@ -518,10 +478,6 @@
                     "percentage": {
                       "type": "number",
                       "example": 2.78
-                    },
-                    "owner": {
-                      "type": "string",
-                      "example": "667c76e3e0564013ee021319"
                     }
                   }
                 }
@@ -613,29 +569,38 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "status": {
                   "type": "string",
-                  "example": "60d0fe4f5311236168a109ca"
+                  "example": 200
                 },
-                "amount": {
-                  "type": "number",
-                  "example": 50
-                },
-                "date": {
+                "message": {
                   "type": "string",
-                  "example": 1720717617
+                  "example": "Successfully found water with id 6693b609d6192024db757e57!"
                 },
-                "norm": {
-                  "type": "number",
-                  "example": 1.8
-                },
-                "percentage": {
-                  "type": "number",
-                  "example": 2.78
-                },
-                "owner": {
-                  "type": "string",
-                  "example": "667c76e3e0564013ee021319"
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6693b609d6192024db757e57"
+                    },
+                    "amount": {
+                      "type": "number",
+                      "example": 50
+                    },
+                    "date": {
+                      "type": "string",
+                      "example": 1720717617
+                    },
+                    "norm": {
+                      "type": "number",
+                      "example": 1.8
+                    },
+                    "percentage": {
+                      "type": "number",
+                      "example": 2.78
+                    }
+                  }
                 }
               }
             }
@@ -655,14 +620,14 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Successfully"
+                  "example": "Successfully delete a water!"
                 },
                 "data": {
                   "type": "object",
                   "properties": {
                     "id": {
                       "type": "string",
-                      "example": "60d0fe4f5311236168a109ca"
+                      "example": "6693b609d6192024db757e57"
                     },
                     "amount": {
                       "type": "number",
@@ -678,11 +643,7 @@
                     },
                     "percentage": {
                       "type": "number",
-                      "example": 3
-                    },
-                    "owner": {
-                      "type": "string",
-                      "example": "667c76e3e0564013ee021319"
+                      "example": 2.78
                     }
                   }
                 }
@@ -698,29 +659,38 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "status": {
                   "type": "string",
-                  "example": "60d0fe4f5311236168a109ca"
+                  "example": 200
                 },
-                "amount": {
+                "message": {
                   "type": "string",
-                  "example": 100
+                  "example": "Successfully update a water!"
                 },
-                "date": {
-                  "type": "string",
-                  "example": 1720717617
-                },
-                "norm": {
-                  "type": "string",
-                  "example": 1.8
-                },
-                "percentage": {
-                  "type": "string",
-                  "example": 5.56
-                },
-                "owner": {
-                  "type": "string",
-                  "example": "667c76e3e0564013ee021319"
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6693b609d6192024db757e57"
+                    },
+                    "amount": {
+                      "type": "string",
+                      "example": 100
+                    },
+                    "date": {
+                      "type": "string",
+                      "example": 1720717617
+                    },
+                    "norm": {
+                      "type": "string",
+                      "example": 1.8
+                    },
+                    "percentage": {
+                      "type": "string",
+                      "example": 5.56
+                    }
+                  }
                 }
               }
             }

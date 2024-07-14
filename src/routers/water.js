@@ -4,6 +4,8 @@ import {
   getWaterByIdController,
   updateWaterController,
   deleteWaterController,
+  getWaterPrDayController,
+  getWaterPrMonthController,
 } from '../controllers/water.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateMongoId } from '../middlewares/validateMongoId.js';
@@ -37,8 +39,8 @@ router.delete(
   ctrlWrapper(deleteWaterController),
 );
 
-router.get('/day', ctrlWrapper());
+router.get('/day/:date', ctrlWrapper(getWaterPrDayController));
 
-router.get('/month', ctrlWrapper());
+router.get('/month/:date', ctrlWrapper(getWaterPrMonthController));
 
 export default router;

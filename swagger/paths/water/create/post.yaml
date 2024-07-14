@@ -14,7 +14,6 @@ requestBody:
         required:
           - amount
           - date
-          - norm
         properties:
           amount:
             type: number
@@ -22,7 +21,7 @@ requestBody:
             description: 'Amount of water in milliliters'
           date:
             type: string
-            example: 1720717617
+            example: 1720918800
           norm:
             type: number
             example: 1.8
