@@ -1,1 +1,14 @@
-description: Successfully logged in an user!
+type: object
+properties:
+  error:
+    type: string
+    example: "OK"
+user:
+    type: object
+    properties:
+      email:
+        type: string
+        example: "knr200710@gmail.com"
+      token:
+        type: string
+        example: "iJIUzkpXVCJ9.eDQx..."

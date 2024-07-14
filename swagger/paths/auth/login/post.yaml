@@ -20,6 +20,14 @@ requestBody:
             example: mypassword
 responses:
   '200':
-    $ref: ../../../components/responses/auth/login/200.yaml
+    description: Successful login
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/login/200.yaml
   '401':
-    $ref: ../../../components/responses/auth/login/401.yaml
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/login/401.yaml
