@@ -47,12 +47,6 @@ responses:
                   percentage:
                     type: number
                     example: 2.78
-            monthlyAmount:
-              type: number
-              example: 50
-            monthlyRate:
-              type: number
-              example: 2.78
   '401':
     $ref: ../../../components/responses/water/401.yaml
   '404':

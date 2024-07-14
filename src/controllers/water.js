@@ -113,8 +113,6 @@ export const getWaterPrMonthController = async (req, res, next) => {
   res.status(200).json({
     status: 200,
     message: `Successfully found water!`,
-    data: result.value,
-    monthlyAmount: result.totalAmount,
-    monthlyPercentage: result.totalPercentage,
+    data: result,
   });
 };

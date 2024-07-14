@@ -417,14 +417,6 @@
                           }
                         }
                       }
-                    },
-                    "monthlyAmount": {
-                      "type": "number",
-                      "example": 50
-                    },
-                    "monthlyRate": {
-                      "type": "number",
-                      "example": 2.78
                     }
                   }
                 }

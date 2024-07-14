@@ -82,15 +82,15 @@ export const deleteWaterById = async (waterId, userId) => {
 
 export const getWaterPrDay = async (userId, timestamp) => {
   const date = new Date(timestamp * 1000);
-  // Получаем начало дня
+  // We get the start of the day
   const startOfDay = new Date(date);
   startOfDay.setHours(0, 0, 0, 0);
 
-  // Получаем конец дня
+  // We get the end of the day
   const endOfDay = new Date(date);
   endOfDay.setHours(23, 59, 59, 999);
 
-  // Преобразуем обратно в Unix timestamp
+  // Convert back to Unix timestamp
   const startOfDayTimestamp = Math.floor(startOfDay.getTime() / 1000);
   const endOfDayTimestamp = Math.floor(endOfDay.getTime() / 1000);
 
@@ -106,12 +106,12 @@ export const getWaterPrDay = async (userId, timestamp) => {
     return null;
   }
 
-  // Убираем поле owner
+  // Remove the owner field
   const value = PerDay.map(({ _id, owner, ...rest }) => {
     return { id: _id, rest };
   });
 
-  // Вычислить общие значения amount и percentage
+  // Calculate the total values of amount and percentage
   const totalAmount = PerDay.reduce((acc, curr) => acc + curr.amount, 0);
   const totalPercentage = PerDay.reduce(
     (acc, curr) => acc + curr.percentage,
@@ -127,21 +127,21 @@ export const getWaterPrDay = async (userId, timestamp) => {
 
 export const getWaterPrMonth = async (userId, timestamp) => {
   const date = new Date(timestamp * 1000);
-  // Получаем первый день месяца
+  // We get the first day of the month
   const firstDayOfMonth = new Date(
     date.getUTCFullYear(),
     date.getUTCMonth(),
     1,
   );
 
-  // Получаем последний день месяца
+  // We get the last day of the month
   const lastDayOfMonth = new Date(
     date.getUTCFullYear(),
     date.getUTCMonth() + 1,
     0,
   );
 
-  // Преобразуем обратно в Unix timestamp
+  // Convert back to Unix timestamp
   const startOfDayOfMonthTimestamp = Math.floor(
     firstDayOfMonth.getTime() / 1000,
   );
@@ -159,21 +159,10 @@ export const getWaterPrMonth = async (userId, timestamp) => {
     return null;
   }
 
-  // Убираем поле owner
+  // Remove the owner field
   const value = PerDay.map(({ _id, owner, ...rest }) => {
     return { id: _id, rest };
   });
 
-  // Вычисляем общие значения amount и percentage
-  const totalAmount = PerDay.reduce((acc, curr) => acc + curr.amount, 0);
-  const totalPercentage = PerDay.reduce(
-    (acc, curr) => acc + curr.percentage,
-    0,
-  );
-
-  return {
-    value,
-    totalAmount,
-    totalPercentage,
-  };
+  return value;
 };
