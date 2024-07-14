@@ -9,7 +9,7 @@ import { swaggerDocs } from './middlewares/swaggerDocs.js';
 import router from './routers/index.js';
 
 const allowedOrigins = [
-  'https://project-aqua-track-front-23cj.vercel.app/',
+  'https://project-aqua-track-front-23cj.vercel.app',
   'http://localhost:5173',
 ];
 
