@@ -8,7 +8,13 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 import router from './routers/index.js';
 
-// const allowedOrigins = [env(ENV_VARS.APP_DOMAIN), 'http://localhost:5173'];
+const allowedOrigins = {
+  origin: [
+    'https://project-aqua-track-front.vercel.app',
+    'http://localhost:5173',
+  ],
+  credentials: true,
+};
 
 export const setupServer = () => {
   const PORT = env(ENV_VARS.PORT, '3000');
@@ -25,7 +31,7 @@ export const setupServer = () => {
   //   credentials: true,
   // };
 
-  app.use(cors());
+  app.use(cors(allowedOrigins));
   app.use(cookieParser());
   app.use(express.json());
 
