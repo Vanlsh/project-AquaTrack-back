@@ -26,10 +26,10 @@ paths:
       $ref: ../swagger/paths/water/update/patch.yaml
     delete:
       $ref: ../swagger/paths/water/delete/delete.yaml
-  /water/day/{date}:
+  /water/day:
     get:
       $ref: ../swagger/paths/water/day/get.yaml
-  /water/month/{date}:
+  /water/month:
     get:
       $ref: ../swagger/paths/water/month/get.yaml
 components:

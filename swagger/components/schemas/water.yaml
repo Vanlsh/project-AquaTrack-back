@@ -2,8 +2,9 @@ type: object
 required:
   - id
   - amount
-  - date
+  - time
   - norm
+  - owner
 properties:
   id:
     type: string
@@ -19,4 +20,7 @@ properties:
     example: 1720717617
   percentage:
     type: number
-    example: 2.78
+    example: 3
+  owner:
+    type: string
+    example: 667c76e3e0564013ee021319
