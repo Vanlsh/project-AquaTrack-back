@@ -7,7 +7,7 @@ import {
   getCurrentUser,
   verifyUserEmail,
   resendVerificationEmail,
-  getUserCountt,
+  getUserCount,
 } from '../services/users.js';
 import createHttpError from 'http-errors';
 
@@ -96,6 +96,6 @@ export const refreshTokens = async (req, res, next) => {
 };
 
 export const getUserCount = async (req, res, next) => {
-  const count = await getUserCountt();
+  const count = await getUserCount();
   res.status(200).json({ count });
 };

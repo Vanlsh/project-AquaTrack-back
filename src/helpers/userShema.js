@@ -23,12 +23,11 @@ export const userSchema = Joi.object({
   dailyActiveTime: Joi.number().positive(),
   dailyWaterConsumption: Joi.number().positive(),
   gender: Joi.string().valid('Women', 'Man'),
-  photo: Joi.string().uri(),
-}).min(1)
+})
+  .min(1)
   .messages({
     'object.min': 'At least one field must be filled',
   });
-
 
 export const resendVerifySchema = Joi.object({
   email: Joi.string().email().required(),

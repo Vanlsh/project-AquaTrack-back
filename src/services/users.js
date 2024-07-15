@@ -104,6 +104,6 @@ export const refreshUserSession = async (refreshToken) => {
   return tokens;
 };
 
-export const getUserCountt = async () => {
+export const getUserCount = async () => {
   return await User.countDocuments();
 };
