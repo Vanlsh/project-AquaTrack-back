@@ -388,7 +388,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found water!"
+                      "example": "Successfully!"
                     },
                     "data": {
                       "type": "array",

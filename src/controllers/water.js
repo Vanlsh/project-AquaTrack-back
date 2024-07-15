@@ -112,7 +112,7 @@ export const getWaterPrMonthController = async (req, res, next) => {
 
   res.status(200).json({
     status: 200,
-    message: 'Successfully found water!',
+    message: 'Successfully!',
     data: result,
     length,
   });
