@@ -36,10 +36,10 @@ paths:
       $ref: ../swagger/paths/auth/getUserCount/get.yaml
   /users/{id}/avatar:
     patch:
-      $ref: ../swagger/paths/auth/uploadAvatar/patch.yaml
+      $ref: ../swagger/paths/auth/{id}/avatar/patch.yaml
   /users/{id}:
     patch:
-      $ref: ../swagger/paths/auth/updateUser/patch.yaml
+      $ref: ../swagger/paths/auth/{id}/patch.yaml
   /water:
     post:
       $ref: ../swagger/paths/water/create/post.yaml

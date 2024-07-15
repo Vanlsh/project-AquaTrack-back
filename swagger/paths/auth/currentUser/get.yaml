@@ -5,22 +5,22 @@ operationId: loginUser
 description: Log in a user
 security:
   - bearerAuth: []
-requestBody:
-  required: true
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - email
-          - password
-        properties:
-          email:
-            type: string
-            example: user@email.com
-          password:
-            type: string
-            example: mypassword
+# requestBody:
+#   required: true
+# content:
+#   application/json:
+#     schema:
+#       type: object
+#       required:
+#         - email
+#         - password
+#       properties:
+#         email:
+#           type: string
+#           example: user@email.com
+#         password:
+#           type: string
+#           example: mypassword
 responses:
   '200':
     description: Successful login

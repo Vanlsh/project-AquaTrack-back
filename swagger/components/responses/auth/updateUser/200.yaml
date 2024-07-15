@@ -13,16 +13,16 @@ content:
         data:
           type: object
           properties:
-          _id:
-            type: string
-            example: "6694027766"
-          email:
-            type: string
-            example: "user@mail"
-          name:
-            type: string
-            example: "User"
-          weight:
+            _id:
+              type: string
+              example: '6694027766'
+            email:
+              type: string
+              example: 'user@mail'
+            name:
+              type: string
+              example: 'User'
+            weight:
             type: number
             example: 35
           dailyActiveTime:
@@ -33,7 +33,7 @@ content:
             example: 1.5
           gender:
             type: string
-            example: "Women"
+            example: 'Women'
           photo:
             type: string
             nullable: true

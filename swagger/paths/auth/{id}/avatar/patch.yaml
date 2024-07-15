@@ -17,7 +17,7 @@ requestBody:
         properties:
           token:
             type: string
-            example: "84279rnc9rq24r"
+            example: '84279rnc9rq24r'
           avatar:
             type: string
             format: binary
