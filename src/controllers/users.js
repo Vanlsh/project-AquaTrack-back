@@ -9,8 +9,7 @@ import {
   resendVerificationEmail,
   getUserCountt,
 } from '../services/users.js';
-import HttpError from '../helpers/HttpError.js';
-import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import createHttpError from 'http-errors';
 
 export const register = async (req, res, next) => {
   const newUser = await registerUser(req.body);
@@ -27,8 +26,8 @@ export const login = async (req, res, next) => {
   const { user, tokens } = await loginUser(email, password);
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
+    sameSite: 'none',
     secure: true,
-    sameSite: 'Strict',
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
   res.status(200).json({
@@ -44,7 +43,6 @@ export const login = async (req, res, next) => {
       photo: user.photo,
     },
   });
-
 };
 
 export const logout = async (req, res, next) => {
@@ -75,7 +73,7 @@ export const resendVerifyEmail = async (req, res, next) => {
 
 export const uploadAvatar = async (req, res, next) => {
   if (!req.file) {
-    throw HttpError(400, 'File not provided');
+    throw createHttp1(400, 'File not provided');
   }
   const photo = req.file;
   const url = await saveFileToCloudinary(photo);
@@ -85,13 +83,13 @@ export const uploadAvatar = async (req, res, next) => {
 export const refreshTokens = async (req, res, next) => {
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
-    console.log('error');
+    return new createHttpError(401, 'Not authorized');
   }
   const tokens = await refreshUserSession(req.cookies.refreshToken);
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
+    sameSite: 'none',
     secure: true,
-    sameSite: 'Strict',
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
   res.status(200).json({ token: tokens.accessToken });
