@@ -179,7 +179,7 @@ export const getWaterPrMonth = async (userId, timestamp) => {
           ).getTime() / 1000,
         ).toString(),
         amount: 0,
-        percent: 0,
+        percentage: 0,
       };
     });
 
@@ -216,7 +216,7 @@ export const getWaterPrMonth = async (userId, timestamp) => {
     return {
       date: dayData.date.toString(),
       amount: dayData.amount,
-      percent: parseFloat(dayData.percent.toFixed(2)), // Перетворюємо значення відсотка на число
+      percentage: parseFloat(dayData.percent.toFixed(2)), // Перетворюємо значення відсотка на число
     };
   });
 
