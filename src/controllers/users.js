@@ -31,28 +31,17 @@ export const login = async (req, res, next) => {
     sameSite: 'Strict',
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
-  const {
-    emaill,
-    name,
-    weight,
-    dailyActiveTime,
-    dailyWaterConsumption,
-    gender,
-    photo,
-    _id,
-  } = user;
-
   res.status(200).json({
     token: tokens.accessToken,
     user: {
-      id: _id,
-      emaill,
-      name,
-      weight,
-      dailyActiveTime,
-      dailyWaterConsumption,
-      gender,
-      photo,
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      weight: user.weight,
+      dailyActiveTime: user.dailyActiveTime,
+      dailyWaterConsumption: user.dailyWaterConsumption,
+      gender: user.gender,
+      photo: user.photo,
     },
   });
 
