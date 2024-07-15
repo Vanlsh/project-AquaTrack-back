@@ -8,7 +8,6 @@ import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import mail from '../mail/mail.js';
 import HttpError from '../helpers/HttpError.js';
-import { registerUserSchema, loginUserSchema } from '../helpers/userShema.js';
 import { generateTokens } from '../utils/generateTokens.js';
 
 export const registerUser = async (data) => {
@@ -87,30 +86,6 @@ export const resendVerificationEmail = async (email) => {
   if (user.verify) throw HttpError(400, 'Verification has already been passed');
 
   await mail.sendMail(email, user.verificationToken);
-};
-
-export const uploadUserAvatar = async (userId, file) => {
-  const { path: tempPath, filename } = file;
-  const tempFilePath = path.resolve(tempPath);
-  const outputDir = path.resolve('temp/avatars');
-  const outputFilePath = path.join(outputDir, filename);
-
-  const image = await Jimp.read(tempFilePath);
-  await image.resize(250, 250).writeAsync(tempFilePath);
-
-  await fs.mkdir(outputDir, { recursive: true });
-  await fs.rename(tempFilePath, outputFilePath);
-  const photo = `/avatars/${filename}`;
-  const updatedData = {
-    ...(photo && { photo }),
-  };
-
-  const result = await User.findByIdAndUpdate(userId, updatedData, {
-    new: true,
-    select: 'photo',
-  });
-
-  return result;
 };
 
 export const refreshUserSession = async (refreshToken) => {
