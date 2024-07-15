@@ -103,7 +103,7 @@ export const getWaterPrMonthController = async (req, res, next) => {
   const { date } = req.params;
   const userId = req.user.id;
 
-  const result = await getWaterPrMonth(userId, date);
+  const { result, length } = await getWaterPrMonth(userId, date);
 
   if (!result) {
     next(createHttpError(404, 'Water not found'));
@@ -112,7 +112,8 @@ export const getWaterPrMonthController = async (req, res, next) => {
 
   res.status(200).json({
     status: 200,
-    message: `Successfully found water!`,
+    message: 'Successfully!',
     data: result,
+    length,
   });
 };
