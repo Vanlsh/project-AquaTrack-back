@@ -2,24 +2,16 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import gravatar from 'gravatar';
-import User from '../db/modules/user.js';
+import User from '../db/models/user.js';
 import Jimp from 'jimp';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import mail from '../mail/mail.js';
 import HttpError from '../helpers/HttpError.js';
-import { registerUserSchema, loginUserSchema } from '../db/modules/user.js';
+import { registerUserSchema, loginUserSchema } from '../helpers/userShema.js';
 import { generateTokens } from '../utils/generateTokens.js';
 
 export const registerUser = async (data) => {
-  const { error } = registerUserSchema.validate(data, { abortEarly: false });
-  if (error) {
-    const errorMessage = error.details
-      .map((detail) => detail.message)
-      .join(', ');
-    throw HttpError(400, errorMessage);
-  }
-
   const { email, password } = data;
   const existedUser = await User.findOne({ email });
   if (existedUser) throw HttpError(409, 'Email in use');
@@ -37,16 +29,6 @@ export const registerUser = async (data) => {
 };
 
 export const loginUser = async (email, password) => {
-  // const { error } = loginUserSchema.validate(
-  //   { email, password },
-  //   { abortEarly: false },
-  // );
-  // if (error) {
-  //   const errorMessage = error.details
-  //     .map((detail) => detail.message)
-  //     .join(', ');
-  //   throw HttpError(400, errorMessage);
-  // }
 
   const existedUser = await User.findOne({ email });
   if (!existedUser) throw HttpError(401, 'Email or password is wrong');
@@ -68,22 +50,19 @@ export const logoutUser = async (userId) => {
 export const getCurrentUser = async (userId) => {
   return await User.findById(
     userId,
-    'email name weight dailyActiveTime dailyWaterConsumption gender photo',
+    'name weight dailyActiveTime dailyWaterConsumption gender photo',
   );
 };
 
 export const updateUserDetails = async (userId, data) => {
-  const updatedData = Object.keys(data).reduce((acc, key) => {
-    if (data[key] !== undefined) {
-      acc[key] = data[key];
-    }
-    return acc;
-  }, {});
-
-  const result = await User.findByIdAndUpdate(userId, updatedData, {
-    new: true,
-    select: 'name weight dailyActiveTime dailyWaterConsumption gender photo',
-  });
+  const result = await User.findByIdAndUpdate(
+    userId,
+    { $set: data },
+    {
+      new: true,
+      fields: 'name weight dailyActiveTime dailyWaterConsumption gender photo',
+    },
+  );
 
   if (!result) {
     throw new HttpError(404, 'User not found');
@@ -91,6 +70,7 @@ export const updateUserDetails = async (userId, data) => {
 
   return result;
 };
+
 
 export const verifyUserEmail = async (verificationToken) => {
   const user = await User.findOne({ verificationToken });

@@ -7,7 +7,6 @@ import {
   getCurrentUser,
   verifyUserEmail,
   resendVerificationEmail,
-  uploadUserAvatar,
   getUserCountt,
 } from '../services/users.js';
 import HttpError from '../helpers/HttpError.js';
@@ -32,14 +31,31 @@ export const login = async (req, res, next) => {
     sameSite: 'Strict',
     expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
-  // повертати юзера
+  const {
+    emaill,
+    name,
+    weight,
+    dailyActiveTime,
+    dailyWaterConsumption,
+    gender,
+    photo,
+    _id,
+  } = user;
+
   res.status(200).json({
     token: tokens.accessToken,
     user: {
-      email: user.email,
-      subscription: user.subscription,
+      id: _id,
+      emaill,
+      name,
+      weight,
+      dailyActiveTime,
+      dailyWaterConsumption,
+      gender,
+      photo,
     },
   });
+
 };
 
 export const logout = async (req, res, next) => {
@@ -74,7 +90,6 @@ export const uploadAvatar = async (req, res, next) => {
   }
   const photo = req.file;
   const url = await saveFileToCloudinary(photo);
-  // const updatedUser = await uploadUserAvatar(req.user.id, req.file);
   res.json({ photo: url });
 };
 

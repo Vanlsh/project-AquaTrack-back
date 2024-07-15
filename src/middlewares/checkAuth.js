@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../db/modules/user.js';
+import User from '../db/models/user.js';
 import HttpError from '../helpers/HttpError.js';
 
 export const checkAuth = async (req, res, next) => {
