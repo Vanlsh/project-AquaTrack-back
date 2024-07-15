@@ -7,12 +7,12 @@ export const createWater = async (payload) => {
     norm = userNorm;
   }
 
-  const percentage = ((amount / (norm * 1000)) * 100).toFixed(2);
+  const percentageage = ((amount / (norm * 1000)) * 100).toFixed(2);
   const contact = await WaterCollection.create({
     amount,
     date,
     norm,
-    percentage,
+    percentageage,
     owner: userId,
   });
 
@@ -48,11 +48,11 @@ export const updateWaterById = async (
     norm = water.norm,
   } = payload;
 
-  const percentage = ((amount / (norm * 1000)) * 100).toFixed(2);
+  const percentageage = ((amount / (norm * 1000)) * 100).toFixed(2);
 
   const rawResult = await WaterCollection.findOneAndUpdate(
     { _id: waterId, owner: userId },
-    { amount, date, norm, percentage },
+    { amount, date, norm, percentageage },
     {
       new: true,
       includeResultMetadata: true,
@@ -111,17 +111,17 @@ export const getWaterPrDay = async (userId, timestamp) => {
     return { id: _id, ...rest };
   });
 
-  // Calculate the total values of amount and percentage
+  // Calculate the total values of amount and percentageage
   const totalAmount = PerDay.reduce((acc, curr) => acc + curr.amount, 0);
-  const totalPercentage = PerDay.reduce(
-    (acc, curr) => acc + curr.percentage,
+  const totalpercentageage = PerDay.reduce(
+    (acc, curr) => acc + curr.percentageage,
     0,
   );
 
   return {
     value,
     totalAmount,
-    totalPercentage,
+    totalpercentageage,
   };
 };
 
@@ -179,7 +179,7 @@ export const getWaterPrMonth = async (userId, timestamp) => {
           ).getTime() / 1000,
         ).toString(),
         amount: 0,
-        percent: 0,
+        percentage: 0,
       };
     });
 
@@ -188,17 +188,17 @@ export const getWaterPrMonth = async (userId, timestamp) => {
 
   // Групуємо записи за днями
   const groupedByDate = {};
-  perDay.forEach(({ date, amount, percentage }) => {
+  perDay.forEach(({ date, amount, percentageage }) => {
     const day = new Date(date * 1000).getUTCDate();
     if (!groupedByDate[day]) {
       groupedByDate[day] = {
         amount: 0,
         date: date,
-        percent: 0,
+        percentage: 0,
       };
     }
     groupedByDate[day].amount += amount;
-    groupedByDate[day].percent += percentage; // Додаємо відсоток для кожного прийому
+    groupedByDate[day].percentage += percentageage; // Додаємо відсоток для кожного прийому
   });
 
   // Формуємо масив результатів на основі кількості днів у місяці
@@ -211,12 +211,12 @@ export const getWaterPrMonth = async (userId, timestamp) => {
           Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day),
         ).getTime() / 1000,
       ),
-      percent: 0,
+      percentage: 0,
     };
     return {
       date: dayData.date.toString(),
       amount: dayData.amount,
-      percent: parseFloat(dayData.percent.toFixed(2)), // Перетворюємо значення відсотка на число
+      percentage: parseFloat(dayData.percentage.toFixed(2)), // Перетворюємо значення відсотка на число
     };
   });
 
