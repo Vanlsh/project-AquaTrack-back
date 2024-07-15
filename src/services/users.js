@@ -11,8 +11,7 @@ export const registerUser = async (data) => {
   const { email, password } = data;
   const existedUser = await User.findOne({ email });
   if (existedUser) {
-    next(createHttpError(409, 'Email in use'));
-    return;
+    throw createHttpError(409, 'Email in use');
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -30,14 +29,12 @@ export const registerUser = async (data) => {
 export const loginUser = async (email, password) => {
   const existedUser = await User.findOne({ email });
   if (!existedUser) {
-    next(createHttpError(401, 'Email or password is wrong'));
-    return;
+    throw createHttpError(401, 'Email or password is wrong');
   }
 
   const isMatch = await bcrypt.compare(password, existedUser.password);
   if (!isMatch) {
-    next(createHttpError(401, 'Email or password is wrong'));
-    return;
+    throw createHttpError(401, 'Email or password is wrong');
   }
 
   const tokens = generateTokens(existedUser);
@@ -69,8 +66,7 @@ export const updateUserDetails = async (userId, data) => {
   );
 
   if (!result) {
-    next(createHttpError(404, 'User not found'));
-    return;
+    throw createHttpError(404, 'User not found');
   }
 
   return result;
@@ -79,8 +75,7 @@ export const updateUserDetails = async (userId, data) => {
 export const verifyUserEmail = async (verificationToken) => {
   const user = await User.findOne({ verificationToken });
   if (!user) {
-    next(createHttpError(404, 'User not found'));
-    return;
+    throw createHttpError(404, 'User not found');
   }
 
   await User.findOneAndUpdate(
@@ -92,8 +87,7 @@ export const verifyUserEmail = async (verificationToken) => {
 export const resendVerificationEmail = async (email) => {
   const user = await User.findOne({ email });
   if (user.verify) {
-    next(createHttpError(400, 'Verification has already been passed'));
-    return;
+    throw createHttpError(400, 'Verification has already been passed');
   }
 
   await mail.sendMail(email, user.verificationToken);
@@ -101,22 +95,19 @@ export const resendVerificationEmail = async (email) => {
 
 export const refreshUserSession = async (refreshToken) => {
   if (!refreshToken) {
-    next(createHttpError(401, 'Refresh token is required'));
-    return;
+    throw createHttpError(401, 'Refresh token is required');
   }
 
   let decoded;
   try {
     decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
   } catch (err) {
-    next(createHttpError(401, 'Invalid refresh token'));
-    return;
+    throw createHttpError(401, 'Invalid refresh token');
   }
 
   const user = await User.findById(decoded.id);
   if (!user) {
-    next(createHttpError(401, 'User not found'));
-    return;
+    throw createHttpError(401, 'User not found');
   }
 
   const tokens = generateTokens(user);
