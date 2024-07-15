@@ -1,17 +1,3 @@
-type: object
-properties:
-  error:
-    type: string
-    example: "Unauthorized"
-  message:
-    type: string
-    oneOf:
-      - example: "Invalid email or password"
-      - example: "Please verify your email"
-      - example: "Email is required"
-      - example: "\"password\" is required"
-      - example: "Email or password is wrong"
-      - example: "Please verify your email"
 description: Fail register
 content:
   application/json:
@@ -24,8 +10,7 @@ content:
         message:
           type: string
           oneOf:
-            - example: "Email in use"
-            - example: "Please verify your email"
-            - example: "Email is required"
-            - example: "\"password\" is required"
-
+            - example: 'Email in use'
+            - example: 'Please verify your email'
+            - example: 'Email is required'
+            - example: '"password" is required'

@@ -1,4 +1,5 @@
 description: Fail count users
+content:
   application/json:
     schema:
       type: object
@@ -9,8 +10,7 @@ description: Fail count users
         message:
           type: string
           oneOf:
-            - example: "Invalid email or password"
-            - example: "Email is required"
-            - example: "\"password\" is required"
-            - example: "Email or password is wrong"
-
+            - example: 'Invalid email or password'
+            - example: 'Email is required'
+            - example: '"password" is required'
+            - example: 'Email or password is wrong'
