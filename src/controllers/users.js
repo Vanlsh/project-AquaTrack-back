@@ -73,7 +73,7 @@ export const resendVerifyEmail = async (req, res, next) => {
 
 export const uploadAvatar = async (req, res, next) => {
   if (!req.file) {
-    throw createHttp1(400, 'File not provided');
+    throw createHttpError(400, 'File not provided');
   }
   const photo = req.file;
   const url = await saveFileToCloudinary(photo);
