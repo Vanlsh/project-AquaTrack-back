@@ -59,7 +59,7 @@ router.patch(
 );
 
 //getUserCount
-router.get('/count', checkAuth, ctrlWrapper(getUserCount));
+router.get('/count', ctrlWrapper(getUserCount));
 
 router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
 router.post(

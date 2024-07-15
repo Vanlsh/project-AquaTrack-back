@@ -22,7 +22,7 @@ export const userSchema = Joi.object({
   weight: Joi.number().positive(),
   dailyActiveTime: Joi.number().positive(),
   dailyWaterConsumption: Joi.number().positive(),
-  gender: Joi.string().valid('Women', 'Man'),
+  gender: Joi.string().valid('women', 'man'),
 })
   .min(1)
   .messages({

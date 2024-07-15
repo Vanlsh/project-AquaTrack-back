@@ -10,7 +10,10 @@ import createHttpError from 'http-errors';
 export const registerUser = async (data) => {
   const { email, password } = data;
   const existedUser = await User.findOne({ email });
-  if (existedUser) throw createHttpError(409, 'Email in use');
+  if (existedUser) {
+    next(createHttpError(409, 'Email in use'));
+    return;
+  }
 
   const hashPassword = await bcrypt.hash(password, 10);
   const generatedAvatar = gravatar.url(email);
@@ -26,10 +29,16 @@ export const registerUser = async (data) => {
 
 export const loginUser = async (email, password) => {
   const existedUser = await User.findOne({ email });
-  if (!existedUser) throw createHttpError(401, 'Email or password is wrong');
+  if (!existedUser) {
+    next(createHttpError(401, 'Email or password is wrong'));
+    return;
+  }
 
   const isMatch = await bcrypt.compare(password, existedUser.password);
-  if (!isMatch) throw createHttpError(401, 'Email or password is wrong');
+  if (!isMatch) {
+    next(createHttpError(401, 'Email or password is wrong'));
+    return;
+  }
 
   const tokens = generateTokens(existedUser);
 
@@ -60,7 +69,8 @@ export const updateUserDetails = async (userId, data) => {
   );
 
   if (!result) {
-    throw createHttpError(404, 'User not found');
+    next(createHttpError(404, 'User not found'));
+    return;
   }
 
   return result;
@@ -68,7 +78,10 @@ export const updateUserDetails = async (userId, data) => {
 
 export const verifyUserEmail = async (verificationToken) => {
   const user = await User.findOne({ verificationToken });
-  if (!user) throw createHttpError(404, 'User not found');
+  if (!user) {
+    next(createHttpError(404, 'User not found'));
+    return;
+  }
 
   await User.findOneAndUpdate(
     { _id: user._id },
@@ -78,24 +91,33 @@ export const verifyUserEmail = async (verificationToken) => {
 
 export const resendVerificationEmail = async (email) => {
   const user = await User.findOne({ email });
-  if (user.verify)
-    throw createHttpError(400, 'Verification has already been passed');
+  if (user.verify) {
+    next(createHttpError(400, 'Verification has already been passed'));
+    return;
+  }
 
   await mail.sendMail(email, user.verificationToken);
 };
 
 export const refreshUserSession = async (refreshToken) => {
-  if (!refreshToken) throw createHttpError(401, 'Refresh token is required');
+  if (!refreshToken) {
+    next(createHttpError(401, 'Refresh token is required'));
+    return;
+  }
 
   let decoded;
   try {
     decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
   } catch (err) {
-    throw createHttpError(401, 'Invalid refresh token');
+    next(createHttpError(401, 'Invalid refresh token'));
+    return;
   }
 
   const user = await User.findById(decoded.id);
-  if (!user) throw createHttpError(401, 'User not found');
+  if (!user) {
+    next(createHttpError(401, 'User not found'));
+    return;
+  }
 
   const tokens = generateTokens(user);
 

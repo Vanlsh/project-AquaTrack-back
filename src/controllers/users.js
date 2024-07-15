@@ -73,7 +73,8 @@ export const resendVerifyEmail = async (req, res, next) => {
 
 export const uploadAvatar = async (req, res, next) => {
   if (!req.file) {
-    throw createHttpError(400, 'File not provided');
+    next(createHttpError(400, 'File not provided'));
+    return;
   }
   const photo = req.file;
   const url = await saveFileToCloudinary(photo);
@@ -83,7 +84,8 @@ export const uploadAvatar = async (req, res, next) => {
 export const refreshTokens = async (req, res, next) => {
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
-    return new createHttpError(401, 'Not authorized');
+    next(createHttpError(401, 'Not authorized'));
+    return;
   }
   const tokens = await refreshUserSession(req.cookies.refreshToken);
   res.cookie('refreshToken', tokens.refreshToken, {
