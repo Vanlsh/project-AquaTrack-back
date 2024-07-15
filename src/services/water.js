@@ -177,10 +177,9 @@ export const getWaterPrMonth = async (userId, timestamp) => {
           new Date(
             Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day),
           ).getTime() / 1000,
-        ),
+        ).toString(),
         amount: 0,
-        percent: 0,
-        norm: 0,
+        percentage: 0,
       };
     });
 
@@ -189,15 +188,14 @@ export const getWaterPrMonth = async (userId, timestamp) => {
 
   // Групуємо записи за днями
   const groupedByDate = {};
-  perDay.forEach(({ date, amount, percentage, norm }) => {
+  perDay.forEach(({ date, amount, percentage }) => {
     const day = new Date(date * 1000).getUTCDate();
     if (!groupedByDate[day]) {
       groupedByDate[day] = {
         amount: 0,
         date: date,
         percent: 0,
-        norm: norm / 1000,
-      }; // Переводимо норму в літри
+      };
     }
     groupedByDate[day].amount += amount;
     groupedByDate[day].percent += percentage; // Додаємо відсоток для кожного прийому
@@ -214,13 +212,11 @@ export const getWaterPrMonth = async (userId, timestamp) => {
         ).getTime() / 1000,
       ),
       percent: 0,
-      norm: 0,
     };
     return {
-      date: dayData.date,
+      date: dayData.date.toString(),
       amount: dayData.amount,
-      percent: parseFloat(dayData.percent.toFixed(2)), // Перетворюємо значення відсотка на число
-      norm: dayData.norm, // Повертаємо норму в літрах
+      percentage: parseFloat(dayData.percent.toFixed(2)), // Перетворюємо значення відсотка на число
     };
   });
 
