@@ -33,8 +33,8 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ['Women', 'Men'],
-      default: 'Women',
+      enum: ['women', 'men'],
+      default: 'women',
     },
     photo: {
       type: String,
@@ -54,7 +54,5 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
-
-
 
 export default mongoose.model('User', userSchema);

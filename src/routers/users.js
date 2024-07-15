@@ -11,11 +11,12 @@ import {
   getUserCount,
   refreshTokens,
 } from '../controllers/users.js';
-import validateBody from '../helpers/validateBody.js';
+import { validateBody } from '../middlewares/validateBody.js';
 import {
   loginUserSchema,
   registerUserSchema,
   resendVerifySchema,
+  userSchema,
 } from '../helpers/userShema.js';
 import { checkAuth } from '../middlewares/checkAuth.js';
 import uploadMiddleware from '../middlewares/upload.js';
@@ -50,10 +51,15 @@ router.patch(
 );
 
 //updateUser
-router.patch('/info', checkAuth, ctrlWrapper(updateUser));
+router.patch(
+  '/info',
+  checkAuth,
+  validateBody(userSchema),
+  ctrlWrapper(updateUser),
+);
 
 //getUserCount
-router.get('/count', checkAuth, ctrlWrapper(getUserCount));
+router.get('/count', ctrlWrapper(getUserCount));
 
 router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
 router.post(

@@ -108,7 +108,7 @@ export const getWaterPrDay = async (userId, timestamp) => {
 
   // Remove the owner field
   const value = PerDay.map(({ _id, owner, ...rest }) => {
-    return { id: _id, rest };
+    return { id: _id, ...rest };
   });
 
   // Calculate the total values of amount and percentage
@@ -161,7 +161,7 @@ export const getWaterPrMonth = async (userId, timestamp) => {
 
   // Remove the owner field
   const value = PerDay.map(({ _id, owner, ...rest }) => {
-    return { id: _id, rest };
+    return { id: _id, ...rest };
   });
 
   return value;
