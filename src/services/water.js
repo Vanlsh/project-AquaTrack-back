@@ -217,7 +217,7 @@ export const getWaterPrMonth = async (userId, timestamp) => {
       norm: 0,
     };
     return {
-      date: dayData.date,
+      date: dayData.date.toString(),
       amount: dayData.amount,
       percent: parseFloat(dayData.percent.toFixed(2)), // Перетворюємо значення відсотка на число
       norm: dayData.norm, // Повертаємо норму в літрах
