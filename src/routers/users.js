@@ -11,7 +11,7 @@ import {
   getUserCount,
   refreshTokens,
 } from '../controllers/users.js';
-import validateBody from '../helpers/validateBody.js';
+import { validateBody } from '../middlewares/validateBody.js';
 import {
   loginUserSchema,
   registerUserSchema,
@@ -51,7 +51,12 @@ router.patch(
 );
 
 //updateUser
-router.patch('/info', checkAuth, validateBody(userSchema), ctrlWrapper(updateUser));
+router.patch(
+  '/info',
+  checkAuth,
+  validateBody(userSchema),
+  ctrlWrapper(updateUser),
+);
 
 //getUserCount
 router.get('/count', checkAuth, ctrlWrapper(getUserCount));
