@@ -46,5 +46,3 @@ responses:
               example: 31
   '401':
     $ref: ../../../components/responses/water/401.yaml
-  '404':
-    $ref: ../../../components/responses/water/404.yaml

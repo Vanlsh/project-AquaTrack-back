@@ -167,8 +167,24 @@ export const getWaterPrMonth = async (userId, timestamp) => {
     },
   }).lean();
 
+  // Якщо немає записів, повертаємо порожні значення
   if (!perDay || perDay.length === 0) {
-    return { result: null, length: 0 };
+    // Формуємо масив результатів з порожніми значеннями
+    const result = Array.from({ length: lastDayOfMonth }, (_, i) => {
+      const day = i + 1;
+      return {
+        date: Math.floor(
+          new Date(
+            Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day),
+          ).getTime() / 1000,
+        ),
+        amount: 0,
+        percent: 0,
+        norm: 0,
+      };
+    });
+
+    return { result, length: result.length };
   }
 
   // Групуємо записи за днями
