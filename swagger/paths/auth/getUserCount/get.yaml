@@ -2,27 +2,32 @@ tags:
   - Users
 summary: Get count Users
 operationId: countUsers
-description: 'Count'
+description: Retrieve the count of users
 security:
   - bearerAuth: []
-requestBody:
-  required: true
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - email
-          - password
-        properties:
-          email:
-            type: string
-            example: user@email.com
-          password:
-            type: string
-            example: mypassword
+parameters:
+  - in: query
+    name: email
+    required: true
+    schema:
+      type: string
+      example: user@email.com
+  - in: query
+    name: password
+    required: true
+    schema:
+      type: string
+      example: mypassword
 responses:
   '200':
-    $ref: ../../../components/responses/auth/getUserCount/200.yaml
+    description: Successful operation
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/getUserCount/200.yaml
   '500':
-    $ref: ../../../components/responses/auth/getUserCount/500.yaml
+    description: Error response
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/getUserCount/500.yaml

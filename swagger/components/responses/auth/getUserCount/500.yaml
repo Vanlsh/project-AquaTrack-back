@@ -5,12 +5,12 @@ content:
       type: object
       properties:
         status:
-          type: number
+          type: integer
           example: 500
         message:
           type: string
-          oneOf:
-            - example: 'Invalid email or password'
-            - example: 'Email is required'
-            - example: '"password" is required'
-            - example: 'Email or password is wrong'
+          enum:
+            - Invalid email or password
+            - Email is required
+            - "password" is required
+            - Email or password is wrong

@@ -13,8 +13,8 @@ tags:
   - name: Water
     description: Operations about water.
 servers:
-  - url: https://project-aquatrack-back.onrender.com
   - url: http://localhost:3000
+  - url: https://project-aquatrack-back.onrender.com
 paths:
   /users/login:
     post:

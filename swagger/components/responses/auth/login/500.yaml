@@ -5,11 +5,11 @@ content:
       type: object
       properties:
         status:
-          type: number
+          type: integer
           example: 500
         message:
           type: string
-          oneOf:
-            - example: 'Not authorized'
-            - example: 'Email is required'
-            - example: '"password" is required'
+          enum:
+            - Not authorized
+            - Email is required
+            - "password" is required

@@ -2,7 +2,7 @@ tags:
   - Users
 summary: User Avatar
 operationId: userAvatar
-description: 'User Avatar'
+description: Upload or update user avatar
 security:
   - bearerAuth: []
 requestBody:
@@ -14,15 +14,23 @@ requestBody:
         required:
           - token
           - avatar
-          properties:
-            token:
-              type: string
-              example: "84279rnc9rq24r"
-            avatar:
-              type: string
-              format: binary
+        properties:
+          token:
+            type: string
+            example: "84279rnc9rq24r"
+          avatar:
+            type: string
+            format: binary
 responses:
   '200':
-    $ref: ../../../components/responses/auth/uploadAvatar/200.yaml
+    description: Successful avatar upload/update
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/uploadAvatar/200.yaml
   '500':
-    $ref: ../../../components/responses/auth/uploadAvatar/500.yaml
+    description: Failed to upload/update avatar
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/uploadAvatar/500.yaml

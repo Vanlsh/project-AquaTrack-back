@@ -2,7 +2,7 @@ tags:
   - Users
 summary: Register User
 operationId: registerUser
-description: 'Sing up'
+description: Register a new user
 security:
   - bearerAuth: []
 requestBody:
@@ -23,6 +23,14 @@ requestBody:
             example: mypassword
 responses:
   '201':
-    $ref: ../../../components/responses/auth/reg/201.yaml
+    description: Successful registration
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/reg/201.yaml
   '500':
-    $ref: ../../../components/responses/auth/reg/500.yaml
+    description: Failed to register
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/reg/500.yaml

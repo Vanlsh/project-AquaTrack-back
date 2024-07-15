@@ -5,13 +5,14 @@ content:
       type: object
       properties:
         status:
-          type: number
+          type: integer
           example: 200
         message:
           type: string
           example: OK
         data:
           type: object
+          properties:
             _id:
               type: string
               example: '6694027766'

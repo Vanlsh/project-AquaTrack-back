@@ -2,7 +2,7 @@ tags:
   - Users
 summary: Update User
 operationId: updateUser
-description: 'User update'
+description: Update user information
 security:
   - bearerAuth: []
 requestBody:
@@ -13,37 +13,45 @@ requestBody:
         type: object
         required:
           - token
-          properties:
-            token:
-              type: string
-              example: "84279rnc9rq24r"
-            _id:
-              type: string
-              example: "66940274c746"
-            email:
-              type: string
-              example: "user@mail"
-            name:
-              type: string
-              example: "User"
-            weight:
-              type: number
-              example: 54
-            dailyActiveTime:
-              type: number
-              example: 5
-            dailyWaterConsumption:
-              type: number
-              example: 1.5
-            gender:
-              type: string
-              example: "Women"
-            photo:
-              type: string
-              nullable: true
-              example: null
+        properties:
+          token:
+            type: string
+            example: "84279rnc9rq24r"
+          _id:
+            type: string
+            example: "66940274c746"
+          email:
+            type: string
+            example: "user@mail"
+          name:
+            type: string
+            example: "User"
+          weight:
+            type: number
+            example: 54
+          dailyActiveTime:
+            type: number
+            example: 5
+          dailyWaterConsumption:
+            type: number
+            example: 1.5
+          gender:
+            type: string
+            example: "Women"
+          photo:
+            type: string
+            nullable: true
+            example: null
 responses:
   '200':
-    $ref: ../../../components/responses/auth/updateUser/200.yaml
+    description: Successful user update
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/updateUser/200.yaml
   '500':
-    $ref: ../../../components/responses/auth/updateUser/500.yaml
+    description: Failed to update user
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/updateUser/500.yaml

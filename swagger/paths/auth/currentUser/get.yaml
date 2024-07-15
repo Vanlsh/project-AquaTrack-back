@@ -2,7 +2,7 @@ tags:
   - Users
 summary: Login User
 operationId: loginUser
-description: 'Log in'
+description: Log in a user
 security:
   - bearerAuth: []
 requestBody:
@@ -23,6 +23,14 @@ requestBody:
             example: mypassword
 responses:
   '200':
-    $ref: ../../../components/responses/auth/currentUser/200.yaml
+    description: Successful login
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/auth/currentUser/200.yaml
   '500':
-    $ref: ../../../components/responses/currentUser/reg/500.yaml
+    description: Failed to login
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/responses/currentUser/reg/500.yaml

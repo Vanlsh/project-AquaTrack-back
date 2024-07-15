@@ -2,7 +2,7 @@ tags:
   - Users
 summary: Logout user
 operationId: logoutUser
-description: 'Logout user'
+description: Logout a user
 security:
   - bearerAuth: []
 responses:
