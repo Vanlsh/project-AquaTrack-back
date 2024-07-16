@@ -5,7 +5,7 @@ export const errorHandler = (error, req, res, __) => {
     res.status(error.status).json({
       status: error.status,
       message: error.name,
-      data: error.errors ? error.errors[0].message : error,
+      data: error.errors ? { message: error.errors[0].message } : error,
     });
     return;
   }
