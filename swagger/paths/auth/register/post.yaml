@@ -23,14 +23,6 @@ requestBody:
             example: mypassword
 responses:
   '201':
-    # description: Successful registration
-    # content:
-    #   application/json:
-    #     schema:
     $ref: ../../../components/responses/auth/reg/201.yaml
-  '500':
-    # description: Failed to register
-    # content:
-    #   application/json:
-    #     schema:
-    $ref: ../../../components/responses/auth/reg/500.yaml
+  '409':
+    $ref: ../../../components/responses/auth/reg/409.yaml

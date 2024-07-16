@@ -5,32 +5,8 @@ operationId: getUserInfo
 description: User's info
 security:
   - bearerAuth: []
-# requestBody:
-#   required: true
-# content:
-#   application/json:
-#     schema:
-#       type: object
-#       required:
-#         - email
-#         - password
-#       properties:
-#         email:
-#           type: string
-#           example: user@email.com
-#         password:
-#           type: string
-#           example: mypassword
 responses:
   '200':
-    # description: Successful get info
-    # content:
-    #   application/json:
-    #     schema:
     $ref: ../../../components/responses/auth/info/200.yaml
   '500':
-    # description: Failed to get user's info
-    # content:
-    #   application/json:
-    # schema:
-    $ref: ../../../components/responses/auth/info/500.yaml
+    $ref: ../../../components/responses/auth/info/401.yaml

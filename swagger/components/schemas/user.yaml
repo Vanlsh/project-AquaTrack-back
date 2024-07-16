@@ -40,7 +40,7 @@ properties:
   gender:
     description: "User's gender"
     type: string
-    enum: ['women', 'men']
+    enum: ['woman', 'man']
   photo:
     description: "Link to user's photo"
     type: string

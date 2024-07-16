@@ -1,12 +1,12 @@
-description: Fail avatar
+description: Fail get info
 content:
   application/json:
     schema:
       type: object
       properties:
         status:
-          type: number
-          example: 500
+          type: integer
+          example: 401
         message:
           type: string
-          enum: ['Not authorized', 'File not provided']
+          example: 'Unauthorized'

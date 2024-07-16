@@ -23,14 +23,6 @@ requestBody:
             format: binary
 responses:
   '200':
-    # description: Successful avatar upload/update
-    # content:
-    #   application/json:
-    #     schema:
     $ref: ../../../components/responses/auth/uploadAvatar/200.yaml
   '500':
-    # description: Failed to upload/update avatar
-    # content:
-    #   application/json:
-    #     schema:
-    $ref: ../../../components/responses/auth/uploadAvatar/500.yaml
+    $ref: ../../../components/responses/auth/uploadAvatar/401.yaml
