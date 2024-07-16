@@ -1,4 +1,4 @@
-description: Fail count users
+description: Fail get info
 content:
   application/json:
     schema:

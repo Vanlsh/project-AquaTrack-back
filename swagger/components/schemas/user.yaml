@@ -1,14 +1,14 @@
 type: object
 required:
-  # - _id
+  - _id
   - email
   - createdAt
   - updatedAt
 properties:
-  # _id:
-  #   description: "User's id"
-  #   type: string
-  #   example: 65e4decdd286b30065d54af9
+  _id:
+    description: "User's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
   email:
     description: "User's email"
     type: string
@@ -40,7 +40,7 @@ properties:
   gender:
     description: "User's gender"
     type: string
-    example: 'man'
+    enum: ['women', 'men']
   photo:
     description: "Link to user's photo"
     type: string

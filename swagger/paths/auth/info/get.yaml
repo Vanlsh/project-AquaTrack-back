@@ -1,8 +1,8 @@
 tags:
   - Users
-summary: Login User
-operationId: loginUser
-description: Log in a user
+summary: Get user info
+operationId: getUserInfo
+description: User's info
 security:
   - bearerAuth: []
 # requestBody:
@@ -23,14 +23,14 @@ security:
 #           example: mypassword
 responses:
   '200':
-    description: Successful login
-    content:
-      application/json:
-        schema:
-          $ref: ../../../components/responses/auth/currentUser/200.yaml
+    # description: Successful get info
+    # content:
+    #   application/json:
+    #     schema:
+    $ref: ../../../components/responses/auth/info/200.yaml
   '500':
-    description: Failed to login
-    content:
-      application/json:
-        schema:
-          $ref: ../../../components/responses/currentUser/reg/500.yaml
+    # description: Failed to get user's info
+    # content:
+    #   application/json:
+    # schema:
+    $ref: ../../../components/responses/auth/info/500.yaml

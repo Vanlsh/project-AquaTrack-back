@@ -1,0 +1,71 @@
+tags:
+  - Users
+summary: Patch user
+operationId: patchUser
+description: 'Patch a user with payload'
+security:
+  - bearerAuth: []
+# parameters:
+#   - in: path
+#     name: id
+#     required: true
+#     schema:
+#       type: string
+#       example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - token
+        properties:
+          token:
+            type: string
+            example: '84279rnc9rq24r'
+          _id:
+            description: "User's id"
+            type: string
+            example: 65e4decdd286b30065d54af9
+          email:
+            description: "User's email"
+            type: string
+            example: user@email.com
+          # createdAt:
+          #   description: "User's create date"
+          #   type: string
+          #   example: 2024-06-26T20:15:31.235Z
+          # updatedAt:
+          #   description: "User's update date"
+          #   type: string
+          #   example: 2024-06-26T20:15:31.235Z
+          name:
+            description: "User's name"
+            type: string
+            example: 'John Doe'
+          weight:
+            description: "User's weight"
+            type: number
+            example: 50
+          dailyActiveTime:
+            description: "User's daily active time"
+            type: number
+            example: 2
+          dailyWaterConsumption:
+            description: "User's daily water consumption"
+            type: number
+            example: 1.5
+          gender:
+            description: "User's gender"
+            type: string
+            enum: ['women', 'men']
+          photo:
+            description: "Link to user's photo"
+            type: string
+            example: ''
+
+responses:
+  '200':
+    $ref: ../../../components/responses/auth/updateUser/200.yaml
+  '500':
+    $ref: ../../../components/responses/auth/updateUser/500.yaml

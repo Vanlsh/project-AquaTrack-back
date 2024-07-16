@@ -1,4 +1,4 @@
-description: Successfully register
+description: Successfully register!
 content:
   application/json:
     schema:
@@ -15,10 +15,10 @@ content:
           properties:
             token:
               type: string
-              example: "6IkpXVCJ9.eyJpZCI"
+              example: '6IkpXVCJ9.eyJpZCI'
             user:
               type: object
               properties:
                 email:
                   type: string
-                  example: "user@mail.com"
+                  example: 'user@mail.com'

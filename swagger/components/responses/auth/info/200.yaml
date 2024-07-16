@@ -17,7 +17,7 @@ content:
         data:
           type: object
           $ref:
-            '..\..\..\schemas\user.yaml'
+            ../../../schemas/user.yaml
             # _id:
             #   type: string
             #   example: '6694027766'

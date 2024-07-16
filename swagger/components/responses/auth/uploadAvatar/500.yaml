@@ -1,4 +1,5 @@
 description: Fail avatar
+content:
   application/json:
     schema:
       type: object
@@ -8,7 +9,4 @@ description: Fail avatar
           example: 500
         message:
           type: string
-          oneOf:
-            - example: "Not authorized"
-            - example: "File not provided"
-
+          enum: ['Not authorized', 'File not provided']

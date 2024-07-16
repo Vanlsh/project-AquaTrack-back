@@ -20,14 +20,14 @@ parameters:
       example: mypassword
 responses:
   '200':
-    description: Successful operation
-    content:
-      application/json:
-        schema:
-          $ref: ../../../components/responses/auth/getUserCount/200.yaml
+    # description: Successful operation
+    # content:
+    #   application/json:
+    #     schema:
+    $ref: ../../../components/responses/auth/getUserCount/200.yaml
   '500':
-    description: Error response
-    content:
-      application/json:
-        schema:
-          $ref: ../../../components/responses/auth/getUserCount/500.yaml
+    # description: Error response
+    # content:
+    #   application/json:
+    #     schema:
+    $ref: ../../../components/responses/auth/getUserCount/500.yaml

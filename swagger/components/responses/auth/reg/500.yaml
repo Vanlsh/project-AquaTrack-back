@@ -10,7 +10,9 @@ content:
         message:
           type: string
           enum:
-            - Email in use
-            - Please verify your email
-            - Email is required
-            - "password" is required
+            [
+              'Email in use',
+              'Please verify your email',
+              'Email is required',
+              '"password" is required',
+            ]

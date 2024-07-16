@@ -9,7 +9,4 @@ content:
           example: 500
         message:
           type: string
-          enum:
-            - Not authorized
-            - Email is required
-            - "password" is required
+          enum: ['Not authorized', 'Email is required', '"password" is required']
