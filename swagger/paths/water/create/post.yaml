@@ -21,7 +21,7 @@ requestBody:
             description: 'Amount of water in milliliters'
           date:
             type: string
-            example: 1720918800
+            example: 1720918800000
           norm:
             type: number
             example: 1.8

@@ -469,7 +469,7 @@
                   },
                   "date": {
                     "type": "string",
-                    "example": 1720918800
+                    "example": 1720918800000
                   },
                   "norm": {
                     "type": "number",
@@ -578,7 +578,7 @@
                     "properties": {
                       "date": {
                         "type": "string",
-                        "example": 1720918800
+                        "example": 1720918800000
                       }
                     }
                   },
@@ -605,7 +605,7 @@
                       },
                       "date": {
                         "type": "string",
-                        "example": 1720918800
+                        "example": 1720918800000
                       },
                       "norm": {
                         "type": "number",
@@ -689,7 +689,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": 1720918800
+              "example": 1720918800000
             }
           }
         ],
@@ -724,7 +724,7 @@
                           },
                           "date": {
                             "type": "string",
-                            "example": 1720918800
+                            "example": 1720918800000
                           },
                           "norm": {
                             "type": "number",
@@ -1032,26 +1032,9 @@
         "content": {
           "application/json": {
             "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Successfully get info"
-                },
-                "data": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/user"
-                }
-              }
+              "type": "string",
+              "format": "date",
+              "example": 1720918800000
             }
           }
         }
@@ -1096,7 +1079,31 @@
                   "properties": {
                     "count": {
                       "type": "string",
-                      "example": "5"
+                      "example": "Successfully!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "example": 1720918800000
+                          },
+                          "amount": {
+                            "type": "number",
+                            "example": 50
+                          },
+                          "percentage": {
+                            "type": "number",
+                            "example": 2.78
+                          }
+                        }
+                      }
+                    },
+                    "length": {
+                      "type": "number",
+                      "example": 31
                     }
                   }
                 }
@@ -1129,7 +1136,15 @@
                     },
                     "photo": {
                       "type": "string",
-                      "example": "/avatars/IMG.png"
+                      "example": 1720918800000
+                    },
+                    "norm": {
+                      "type": "number",
+                      "example": 1.8
+                    },
+                    "percentage": {
+                      "type": "number",
+                      "example": 2.78
                     }
                   }
                 }
@@ -1147,11 +1162,20 @@
               "properties": {
                 "status": {
                   "type": "number",
-                  "example": 401
+                  "example": 400
                 },
                 "message": {
                   "type": "string",
-                  "example": "Not authorized"
+                  "example": "BadRequestError"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error from Joi or other validation library"
+                    }
+                  }
                 }
               }
             }
@@ -1305,7 +1329,7 @@
                     },
                     "date": {
                       "type": "string",
-                      "example": 1720717617
+                      "example": 1720918800000
                     },
                     "norm": {
                       "type": "number",
@@ -1350,7 +1374,7 @@
                     },
                     "date": {
                       "type": "string",
-                      "example": 1720717617
+                      "example": 1720918800000
                     },
                     "norm": {
                       "type": "number",

@@ -28,7 +28,7 @@ requestBody:
             properties:
               date:
                 type: string
-                example: 1720918800
+                example: 1720918800000
           - required: ['norm']
             properties:
               norm:
@@ -41,7 +41,7 @@ requestBody:
                 example: 100
               date:
                 type: string
-                example: 1720918800
+                example: 1720918800000
               norm:
                 type: number
                 example: 1.8

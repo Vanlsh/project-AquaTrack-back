@@ -12,7 +12,7 @@ parameters:
     schema:
       type: string
       format: date
-      example: 1720918800
+      example: 1720918800000
 responses:
   '200':
     description: Successful response
@@ -34,7 +34,7 @@ responses:
                 properties:
                   date:
                     type: string
-                    example: 1720918800
+                    example: 1720918800000
                   amount:
                     type: number
                     example: 50
