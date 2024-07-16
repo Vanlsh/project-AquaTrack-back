@@ -42,6 +42,8 @@ export const updateWaterById = async (
 ) => {
   const water = await getWaterById(waterId, userId);
 
+  if (!water) return null;
+
   const {
     amount = water.amount,
     date = water.date,
