@@ -125,29 +125,41 @@ export const getWaterPrDay = async (userId, timestamp) => {
   };
 };
 
+// Функція для отримання останнього дня місяця з урахуванням високосного року
+const getLastDayOfMonth = (year, month) => {
+  return new Date(year, month + 1, 0).getDate();
+};
+
 export const getWaterPrMonth = async (userId, timestamp) => {
   const date = new Date(timestamp * 1000);
-  // We get the first day of the month
+
+  // Отримуємо перший день місяця
   const firstDayOfMonth = new Date(
     date.getUTCFullYear(),
     date.getUTCMonth(),
     1,
   );
 
-  // We get the last day of the month
-  const lastDayOfMonth = new Date(
+  // Отримуємо останній день місяця з урахуванням високосного року
+  const lastDayOfMonth = getLastDayOfMonth(
     date.getUTCFullYear(),
-    date.getUTCMonth() + 1,
-    0,
+    date.getUTCMonth(),
   );
 
-  // Convert back to Unix timestamp
+  // Конвертуємо в Unix timestamp
   const startOfDayOfMonthTimestamp = Math.floor(
     firstDayOfMonth.getTime() / 1000,
   );
-  const endOfDayOfMonthTimestamp = Math.floor(lastDayOfMonth.getTime() / 1000);
+  const endOfDayOfMonthTimestamp = Math.floor(
+    new Date(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      lastDayOfMonth,
+    ).getTime() / 1000,
+  );
 
-  const PerDay = await WaterCollection.find({
+  // Знаходимо записи для даного користувача за місяць
+  const perDay = await WaterCollection.find({
     owner: userId,
     date: {
       $gte: startOfDayOfMonthTimestamp,
@@ -155,14 +167,58 @@ export const getWaterPrMonth = async (userId, timestamp) => {
     },
   }).lean();
 
-  if (!PerDay || PerDay.length === 0) {
-    return null;
+  // Якщо немає записів, повертаємо порожні значення
+  if (!perDay || perDay.length === 0) {
+    // Формуємо масив результатів з порожніми значеннями
+    const result = Array.from({ length: lastDayOfMonth }, (_, i) => {
+      const day = i + 1;
+      return {
+        date: Math.floor(
+          new Date(
+            Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day),
+          ).getTime() / 1000,
+        ).toString(),
+        amount: 0,
+        percentage: 0,
+      };
+    });
+
+    return { result, length: result.length };
   }
 
-  // Remove the owner field
-  const value = PerDay.map(({ _id, owner, ...rest }) => {
-    return { id: _id, ...rest };
+  // Групуємо записи за днями
+  const groupedByDate = {};
+  perDay.forEach(({ date, amount, percentage }) => {
+    const day = new Date(date * 1000).getUTCDate();
+    if (!groupedByDate[day]) {
+      groupedByDate[day] = {
+        amount: 0,
+        date: date,
+        percent: 0,
+      };
+    }
+    groupedByDate[day].amount += amount;
+    groupedByDate[day].percent += percentage; // Додаємо відсоток для кожного прийому
   });
 
-  return value;
+  // Формуємо масив результатів на основі кількості днів у місяці
+  const result = Array.from({ length: lastDayOfMonth }, (_, i) => {
+    const day = i + 1;
+    const dayData = groupedByDate[day] || {
+      amount: 0,
+      date: Math.floor(
+        new Date(
+          Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day),
+        ).getTime() / 1000,
+      ),
+      percent: 0,
+    };
+    return {
+      date: dayData.date.toString(),
+      amount: dayData.amount,
+      percentage: parseFloat(dayData.percent.toFixed(2)), // Перетворюємо значення відсотка на число
+    };
+  });
+
+  return { result, length: result.length };
 };

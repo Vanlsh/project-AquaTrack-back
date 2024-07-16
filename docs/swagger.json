@@ -388,28 +388,20 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found water!"
+                      "example": "Successfully!"
                     },
                     "data": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "id": {
-                            "type": "string",
-                            "example": "6693b609d6192024db757e57"
-                          },
-                          "amount": {
-                            "type": "number",
-                            "example": 50
-                          },
                           "date": {
                             "type": "string",
                             "example": 1720918800
                           },
-                          "norm": {
+                          "amount": {
                             "type": "number",
-                            "example": 1.8
+                            "example": 50
                           },
                           "percentage": {
                             "type": "number",
@@ -417,6 +409,10 @@
                           }
                         }
                       }
+                    },
+                    "length": {
+                      "type": "number",
+                      "example": 31
                     }
                   }
                 }
@@ -425,9 +421,6 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
           }
         }
       }

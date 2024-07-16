@@ -52,13 +52,41 @@ export const logout = async (req, res, next) => {
 };
 
 export const currentUser = async (req, res, next) => {
-  const user = await getCurrentUser(req.user.id);
-  res.json(user);
+  const {
+    name,
+    weight,
+    dailyActiveTime,
+    dailyWaterConsumption,
+    gender,
+    photo,
+  } = await getCurrentUser(req.user.id);
+  res.json({
+    name,
+    weight,
+    dailyActiveTime,
+    dailyWaterConsumption,
+    gender,
+    photo,
+  });
 };
 
 export const updateUser = async (req, res, next) => {
-  const updatedUser = await updateUserDetails(req.user.id, req.body);
-  res.json(updatedUser);
+  const {
+    name,
+    weight,
+    dailyActiveTime,
+    dailyWaterConsumption,
+    gender,
+    photo,
+  } = await updateUserDetails(req.user.id, req.body);
+  res.json({
+    name,
+    weight,
+    dailyActiveTime,
+    dailyWaterConsumption,
+    gender,
+    photo,
+  });
 };
 
 export const verifyEmail = async (req, res, next) => {
