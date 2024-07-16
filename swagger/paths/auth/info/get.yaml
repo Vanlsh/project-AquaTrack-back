@@ -1,0 +1,12 @@
+tags:
+  - Users
+summary: Get user info
+operationId: getUserInfo
+description: User's info
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    $ref: ../../../components/responses/auth/info/200.yaml
+  '500':
+    $ref: ../../../components/responses/auth/info/401.yaml

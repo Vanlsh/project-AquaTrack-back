@@ -1,0 +1,12 @@
+description: Fail login
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 401
+        message:
+          type: string
+          example: 'Email or password is wrong'

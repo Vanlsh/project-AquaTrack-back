@@ -11,12 +11,13 @@ import {
   getUserCount,
   refreshTokens,
 } from '../controllers/users.js';
-import validateBody from '../helpers/validateBody.js';
+import { validateBody } from '../middlewares/validateBody.js';
 import {
   loginUserSchema,
   registerUserSchema,
   resendVerifySchema,
-} from '../db/modules/user.js';
+  userSchema,
+} from '../helpers/userShema.js';
 import { checkAuth } from '../middlewares/checkAuth.js';
 import uploadMiddleware from '../middlewares/upload.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
@@ -26,7 +27,7 @@ const router = Router();
 router.post(
   '/register',
   validateBody(registerUserSchema),
-  ctrlWrapper(register)
+  ctrlWrapper(register),
 );
 
 //login
@@ -50,12 +51,21 @@ router.patch(
 );
 
 //updateUser
-router.patch('/info', checkAuth, ctrlWrapper(updateUser));
+router.patch(
+  '/info',
+  checkAuth,
+  validateBody(userSchema),
+  ctrlWrapper(updateUser),
+);
 
 //getUserCount
-router.get('/count', checkAuth, ctrlWrapper(getUserCount));
+router.get('/count', ctrlWrapper(getUserCount));
 
 router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
-router.post('/verify', validateBody(resendVerifySchema), ctrlWrapper(resendVerifyEmail));
+router.post(
+  '/verify',
+  validateBody(resendVerifySchema),
+  ctrlWrapper(resendVerifyEmail),
+);
 
 export default router;

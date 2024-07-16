@@ -1,0 +1,12 @@
+description: Fail register
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 409
+        message:
+          type: string
+          example: 'Email in use'

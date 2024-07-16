@@ -1,0 +1,16 @@
+description: Successfully update
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 200
+        message:
+          type: string
+          example: OK
+        data:
+          type: object
+          $ref:
+            ../../../schemas/user.yaml

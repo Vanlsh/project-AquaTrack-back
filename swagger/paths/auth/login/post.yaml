@@ -1,8 +1,8 @@
 tags:
-  - Auth
-summary: Log in
+  - Users
+summary: Login User
 operationId: loginUser
-description: 'Log in'
+description: Log in a user
 security:
   - bearerAuth: []
 requestBody:
@@ -11,6 +11,9 @@ requestBody:
     application/json:
       schema:
         type: object
+        required:
+          - email
+          - password
         properties:
           email:
             type: string
@@ -21,5 +24,5 @@ requestBody:
 responses:
   '200':
     $ref: ../../../components/responses/auth/login/200.yaml
-  '401':
+  '500':
     $ref: ../../../components/responses/auth/login/401.yaml

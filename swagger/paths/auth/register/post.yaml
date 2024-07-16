@@ -1,8 +1,8 @@
 tags:
-  - Auth
+  - Users
 summary: Register User
 operationId: registerUser
-description: 'Sing up'
+description: Register a new user
 security:
   - bearerAuth: []
 requestBody:
@@ -11,10 +11,10 @@ requestBody:
     application/json:
       schema:
         type: object
+        required:
+          - email
+          - password
         properties:
-          name:
-            type: string
-            example: User
           email:
             type: string
             example: user@email.com
@@ -23,6 +23,6 @@ requestBody:
             example: mypassword
 responses:
   '201':
-    $ref: ../../../components/responses/auth/register/201.yaml
+    $ref: ../../../components/responses/auth/reg/201.yaml
   '409':
-    $ref: ../../../components/responses/auth/register/409.yaml
+    $ref: ../../../components/responses/auth/reg/409.yaml
