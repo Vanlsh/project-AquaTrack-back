@@ -21,7 +21,7 @@ content:
               example: 50
             date:
               type: string
-              example: 1720717617
+              example: 1720918800000
             norm:
               type: number
               example: 1.8

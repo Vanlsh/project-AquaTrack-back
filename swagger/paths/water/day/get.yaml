@@ -11,7 +11,7 @@ parameters:
     required: true
     schema:
       type: string
-      example: 1720918800
+      example: 1720918800000
 responses:
   '200':
     description: Successful response
@@ -39,7 +39,7 @@ responses:
                     example: 50
                   date:
                     type: string
-                    example: 1720918800
+                    example: 1720918800000
                   norm:
                     type: number
                     example: 1.8

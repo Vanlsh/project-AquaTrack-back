@@ -59,7 +59,7 @@
                   },
                   "date": {
                     "type": "string",
-                    "example": 1720918800
+                    "example": 1720918800000
                   },
                   "norm": {
                     "type": "number",
@@ -168,7 +168,7 @@
                     "properties": {
                       "date": {
                         "type": "string",
-                        "example": 1720918800
+                        "example": 1720918800000
                       }
                     }
                   },
@@ -195,7 +195,7 @@
                       },
                       "date": {
                         "type": "string",
-                        "example": 1720918800
+                        "example": 1720918800000
                       },
                       "norm": {
                         "type": "number",
@@ -279,7 +279,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": 1720918800
+              "example": 1720918800000
             }
           }
         ],
@@ -314,7 +314,7 @@
                           },
                           "date": {
                             "type": "string",
-                            "example": 1720918800
+                            "example": 1720918800000
                           },
                           "norm": {
                             "type": "number",
@@ -370,7 +370,7 @@
             "schema": {
               "type": "string",
               "format": "date",
-              "example": 1720918800
+              "example": 1720918800000
             }
           }
         ],
@@ -397,7 +397,7 @@
                         "properties": {
                           "date": {
                             "type": "string",
-                            "example": 1720918800
+                            "example": 1720918800000
                           },
                           "amount": {
                             "type": "number",
@@ -462,7 +462,7 @@
                     },
                     "date": {
                       "type": "string",
-                      "example": 1720717617
+                      "example": 1720918800000
                     },
                     "norm": {
                       "type": "number",
@@ -583,7 +583,7 @@
                     },
                     "date": {
                       "type": "string",
-                      "example": 1720717617
+                      "example": 1720918800000
                     },
                     "norm": {
                       "type": "number",
@@ -628,7 +628,7 @@
                     },
                     "date": {
                       "type": "string",
-                      "example": 1720717617
+                      "example": 1720918800000
                     },
                     "norm": {
                       "type": "number",

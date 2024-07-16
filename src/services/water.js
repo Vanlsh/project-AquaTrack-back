@@ -81,7 +81,7 @@ export const deleteWaterById = async (waterId, userId) => {
 };
 
 export const getWaterPrDay = async (userId, timestamp) => {
-  const date = new Date(timestamp * 1000);
+  const date = new Date(parseInt(timestamp));
   // We get the start of the day
   const startOfDay = new Date(date);
   startOfDay.setHours(0, 0, 0, 0);
@@ -91,8 +91,8 @@ export const getWaterPrDay = async (userId, timestamp) => {
   endOfDay.setHours(23, 59, 59, 999);
 
   // Convert back to Unix timestamp
-  const startOfDayTimestamp = Math.floor(startOfDay.getTime() / 1000);
-  const endOfDayTimestamp = Math.floor(endOfDay.getTime() / 1000);
+  const startOfDayTimestamp = startOfDay.getTime();
+  const endOfDayTimestamp = endOfDay.getTime();
 
   const PerDay = await WaterCollection.find({
     owner: userId,
@@ -113,9 +113,8 @@ export const getWaterPrDay = async (userId, timestamp) => {
 
   // Calculate the total values of amount and percentage
   const totalAmount = PerDay.reduce((acc, curr) => acc + curr.amount, 0);
-  const totalPercentage = PerDay.reduce(
-    (acc, curr) => acc + curr.percentage,
-    0,
+  const totalPercentage = parseFloat(
+    PerDay.reduce((acc, curr) => acc + curr.percentage, 0).toFixed(2),
   );
 
   return {
@@ -131,8 +130,7 @@ const getLastDayOfMonth = (year, month) => {
 };
 
 export const getWaterPrMonth = async (userId, timestamp) => {
-  const date = new Date(timestamp * 1000);
-
+  const date = new Date(parseInt(timestamp));
   // Отримуємо перший день місяця
   const firstDayOfMonth = new Date(
     date.getUTCFullYear(),
@@ -147,15 +145,13 @@ export const getWaterPrMonth = async (userId, timestamp) => {
   );
 
   // Конвертуємо в Unix timestamp
-  const startOfDayOfMonthTimestamp = Math.floor(
-    firstDayOfMonth.getTime() / 1000,
-  );
+  const startOfDayOfMonthTimestamp = Math.floor(firstDayOfMonth.getTime());
   const endOfDayOfMonthTimestamp = Math.floor(
     new Date(
       date.getUTCFullYear(),
       date.getUTCMonth(),
       lastDayOfMonth,
-    ).getTime() / 1000,
+    ).getTime(),
   );
 
   // Знаходимо записи для даного користувача за місяць
@@ -173,11 +169,9 @@ export const getWaterPrMonth = async (userId, timestamp) => {
     const result = Array.from({ length: lastDayOfMonth }, (_, i) => {
       const day = i + 1;
       return {
-        date: Math.floor(
-          new Date(
-            Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day),
-          ).getTime() / 1000,
-        ).toString(),
+        date: new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day))
+          .getTime()
+          .toString(),
         amount: 0,
         percentage: 0,
       };
@@ -189,7 +183,7 @@ export const getWaterPrMonth = async (userId, timestamp) => {
   // Групуємо записи за днями
   const groupedByDate = {};
   perDay.forEach(({ date, amount, percentage }) => {
-    const day = new Date(date * 1000).getUTCDate();
+    const day = new Date(parseInt(date)).getUTCDate();
     if (!groupedByDate[day]) {
       groupedByDate[day] = {
         amount: 0,
@@ -206,11 +200,9 @@ export const getWaterPrMonth = async (userId, timestamp) => {
     const day = i + 1;
     const dayData = groupedByDate[day] || {
       amount: 0,
-      date: Math.floor(
-        new Date(
-          Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day),
-        ).getTime() / 1000,
-      ),
+      date: new Date(
+        Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), day),
+      ).getTime(),
       percent: 0,
     };
     return {
