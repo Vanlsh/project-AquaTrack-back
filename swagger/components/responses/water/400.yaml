@@ -4,7 +4,15 @@ content:
     schema:
       type: object
       properties:
+        status:
+          type: number
+          example: 400
         message:
           type: string
-          description: The error message.
-          example: Error from Joi or other validation library
+          example: BadRequestError
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Error from Joi or other validation library
