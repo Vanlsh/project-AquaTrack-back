@@ -37,7 +37,7 @@ router.post('/login', validateBody(loginUserSchema), ctrlWrapper(login));
 router.post('/refresh', ctrlWrapper(refreshTokens));
 
 //logout
-router.post('/logout', checkAuth, ctrlWrapper(logout));
+router.post('/logout', ctrlWrapper(logout));
 
 //currentUser
 router.get('/info', checkAuth, ctrlWrapper(currentUser));

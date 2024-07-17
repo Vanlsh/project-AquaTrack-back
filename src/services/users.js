@@ -44,8 +44,12 @@ export const loginUser = async (email, password) => {
   return { user: existedUser, tokens };
 };
 
-export const logoutUser = async (userId) => {
-  await User.findByIdAndUpdate(userId, { token: null });
+export const logoutUser = async (refreshToken) => {
+  let decoded;
+  try {
+    decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+  } catch (err) {}
+  if (decoded) await User.findByIdAndUpdate(decoded.id, { token: null });
 };
 
 export const getCurrentUser = async (userId) => {
@@ -94,10 +98,6 @@ export const resendVerificationEmail = async (email) => {
 };
 
 export const refreshUserSession = async (refreshToken) => {
-  if (!refreshToken) {
-    throw createHttpError(401, 'Refresh token is required');
-  }
-
   let decoded;
   try {
     decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);

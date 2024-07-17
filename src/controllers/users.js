@@ -9,7 +9,7 @@ import {
   resendVerificationEmail,
   getUserCountService,
 } from '../services/users.js';
-import {saveFileToCloudinary} from "../utils/saveFileToCloudinary.js"
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import createHttpError from 'http-errors';
 
 export const register = async (req, res, next) => {
@@ -47,7 +47,7 @@ export const login = async (req, res, next) => {
 };
 
 export const logout = async (req, res, next) => {
-  await logoutUser(req.user.id);
+  await logoutUser(req.cookies.refreshToken);
   res.clearCookie('refreshToken');
   res.status(204).end();
 };
@@ -114,12 +114,12 @@ export const refreshTokens = async (req, res, next) => {
   if (!refreshToken && refreshToken === 'undefined') {
     throw createHttpError(401, 'Not authorized');
   }
-  const tokens = await refreshUserSession(req.cookies.refreshToken);
+  const tokens = await refreshUserSession(refreshToken);
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
     sameSite: 'none',
     secure: true,
-    expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
+    // expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
   res.status(200).json({ token: tokens.accessToken });
 };
