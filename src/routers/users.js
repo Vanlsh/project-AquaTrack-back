@@ -44,7 +44,7 @@ router.get('/info', checkAuth, ctrlWrapper(currentUser));
 
 //uploadAvatar
 router.patch(
-  '/avatars',
+  '/photo',
   checkAuth,
   uploadMiddleware.single('avatar'),
   ctrlWrapper(uploadAvatar),
