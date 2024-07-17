@@ -110,7 +110,7 @@ export const uploadAvatar = async (req, res, next) => {
 
 export const refreshTokens = async (req, res, next) => {
   const { refreshToken } = req.cookies;
-  if (!refreshToken) {
+  if (!refreshToken && refreshToken === 'undefined') {
     throw createHttpError(401, 'Not authorized');
   }
   const tokens = await refreshUserSession(req.cookies.refreshToken);

@@ -114,7 +114,7 @@ export const refreshUserSession = async (refreshToken) => {
 
   await User.findByIdAndUpdate(user._id, { token: tokens.accessToken });
 
-  return tokens.accessToken;
+  return tokens;
 };
 
 export const getUserCountService = async () => {
