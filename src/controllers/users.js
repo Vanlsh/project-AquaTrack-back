@@ -60,8 +60,11 @@ export const currentUser = async (req, res, next) => {
     dailyWaterConsumption,
     gender,
     photo,
+    email,
   } = await getCurrentUser(req.user.id);
+
   res.json({
+    email,
     name,
     weight,
     dailyActiveTime,
