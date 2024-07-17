@@ -49,7 +49,7 @@ export const login = async (req, res, next) => {
 export const logout = async (req, res, next) => {
   await logoutUser(req.cookies.refreshToken);
   res.clearCookie('refreshToken');
-  res.status(204).end();
+  res.status(204).send();
 };
 
 export const currentUser = async (req, res, next) => {
