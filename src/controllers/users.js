@@ -9,6 +9,7 @@ import {
   resendVerificationEmail,
   getUserCountService,
 } from '../services/users.js';
+import {saveFileToCloudinary} from "../utils/saveFileToCloudinary.js"
 import createHttpError from 'http-errors';
 
 export const register = async (req, res, next) => {

@@ -17,7 +17,7 @@ import {
   registerUserSchema,
   resendVerifySchema,
   userSchema,
-} from '../helpers/userShema.js';
+} from '../validation/userSchema.js';
 import { checkAuth } from '../middlewares/checkAuth.js';
 import uploadMiddleware from '../middlewares/upload.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
