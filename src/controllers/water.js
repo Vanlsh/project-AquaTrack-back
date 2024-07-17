@@ -87,7 +87,7 @@ export const getWaterPrDayController = async (req, res, next) => {
 
   res.status(200).json({
     status: 200,
-    message: `Successfully found water!`,
+    message: `Successfully!`,
     data: result.value,
     dailyAmount: result.totalAmount,
     dailyPercentage: result.totalPercentage,
