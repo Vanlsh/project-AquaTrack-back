@@ -47,8 +47,8 @@ export const login = async (req, res, next) => {
 };
 
 export const logout = async (req, res, next) => {
-  await logoutUser(req.cookies.refreshToken);
   res.clearCookie('refreshToken');
+  await logoutUser(req.cookies.refreshToken);
   res.status(204).send();
 };
 
@@ -122,7 +122,7 @@ export const refreshTokens = async (req, res, next) => {
     httpOnly: true,
     sameSite: 'none',
     secure: true,
-    // expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
+    expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
   });
   res.status(200).json({ token: tokens.accessToken });
 };
