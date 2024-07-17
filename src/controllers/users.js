@@ -47,8 +47,8 @@ export const login = async (req, res, next) => {
 };
 
 export const logout = async (req, res, next) => {
-  res.clearCookie('refreshToken');
-  await logoutUser(req.cookies.refreshToken);
+  res.clearCookie('refreshToken', { sameSite: 'none', secure: true }),
+    await logoutUser(req.cookies.refreshToken);
   res.status(204).send();
 };
 
