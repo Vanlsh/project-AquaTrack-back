@@ -85,14 +85,9 @@ export const getWaterPrDayController = async (req, res, next) => {
 
   const result = await getWaterPrDay(userId, date);
 
-  if (!result) {
-    next(createHttpError(404, 'Water not found'));
-    return;
-  }
-
   res.status(200).json({
     status: 200,
-    message: `Successfully found water!`,
+    message: `Successfully!`,
     data: result.value,
     dailyAmount: result.totalAmount,
     dailyPercentage: result.totalPercentage,

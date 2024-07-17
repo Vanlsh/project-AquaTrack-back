@@ -105,7 +105,11 @@ export const getWaterPrDay = async (userId, timestamp) => {
   }).lean();
 
   if (!PerDay || PerDay.length === 0) {
-    return null;
+    return {
+      value: [],
+      totalAmount: 0,
+      totalPercentage: 0,
+    };
   }
 
   // Remove the owner field
