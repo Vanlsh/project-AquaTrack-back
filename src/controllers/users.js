@@ -1,15 +1,27 @@
 import {
   registerUser,
+  confirmRegisterUser,
   loginUser,
   refreshUserSession,
   logoutUser,
   updateUserDetails,
   getCurrentUser,
-  verifyUserEmail,
   resendVerificationEmail,
   getUserCountt,
 } from '../services/users.js';
 import createHttpError from 'http-errors';
+import mail from '../mail/mail.js';
+
+// export const register = async (req, res, next) => {
+//   const newUser = await registerUser(req.body);
+//   const { email } = newUser;
+//   await mail.sendMail(email, token);
+//   res.status(201).json({
+//     user: {
+//       email,
+//     },
+//   });
+// };
 
 export const register = async (req, res, next) => {
   const newUser = await registerUser(req.body);
@@ -17,6 +29,33 @@ export const register = async (req, res, next) => {
   res.status(201).json({
     user: {
       email,
+    },
+    message: 'Verification email sent',
+  });
+};
+
+export const confirmRegister = async (req, res, next) => {
+  const newUser = await confirmRegisterUser(req.body);
+  const { email, password } = req.body;
+  const { user, tokens } = await loginUser(email, password);
+  const token = tokens.accessToken;
+  res.cookie('refreshToken', tokens.refreshToken, {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+    expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
+  });
+  res.status(200).json({
+    token: tokens.accessToken,
+    user: {
+      id: user._id,
+      email: user.email,
+      name: user.name,
+      weight: user.weight,
+      dailyActiveTime: user.dailyActiveTime,
+      dailyWaterConsumption: user.dailyWaterConsumption,
+      gender: user.gender,
+      photo: user.photo,
     },
   });
 };
@@ -59,11 +98,6 @@ export const currentUser = async (req, res, next) => {
 export const updateUser = async (req, res, next) => {
   const updatedUser = await updateUserDetails(req.user.id, req.body);
   res.json(updatedUser);
-};
-
-export const verifyEmail = async (req, res, next) => {
-  await verifyUserEmail(req.params.verificationToken);
-  res.json({ message: 'Verification successful' });
 };
 
 export const resendVerifyEmail = async (req, res, next) => {

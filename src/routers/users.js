@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import {
   register,
+  confirmRegister,
   login,
   logout,
   currentUser,
   updateUser,
-  verifyEmail,
   resendVerifyEmail,
   uploadAvatar,
   getUserCount,
@@ -15,6 +15,7 @@ import validateBody from '../helpers/validateBody.js';
 import {
   loginUserSchema,
   registerUserSchema,
+  confirmRegisterUserSchema,
   resendVerifySchema,
   userSchema,
 } from '../helpers/userShema.js';
@@ -28,6 +29,13 @@ router.post(
   '/register',
   validateBody(registerUserSchema),
   ctrlWrapper(register),
+);
+
+//confirmregister
+router.post(
+  '/confirmregister',
+  validateBody(confirmRegisterUserSchema),
+  ctrlWrapper(confirmRegister),
 );
 
 //login
@@ -56,9 +64,8 @@ router.patch('/info', checkAuth, validateBody(userSchema), ctrlWrapper(updateUse
 //getUserCount
 router.get('/count', checkAuth, ctrlWrapper(getUserCount));
 
-router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
 router.post(
-  '/verify',
+  '/resendVerify',
   validateBody(resendVerifySchema),
   ctrlWrapper(resendVerifyEmail),
 );

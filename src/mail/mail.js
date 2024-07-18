@@ -1,11 +1,12 @@
 import 'dotenv/config';
 import nodemailer from 'nodemailer';
 
-const { MAIL_USERNAME, MAIL_PASSWORD, MAIL_SENDER, HOST_PORT } = process.env;
+const { MAIL_USERNAME, MAIL_PASSWORD, MAIL_SENDER, HOST_PORT} =
+  process.env;
 
 const transport = nodemailer.createTransport({
   host: 'smtp-relay.brevo.com',
-  port: 587,
+  port: HOST_PORT,
   type: 'LOGIN',
   auth: {
     user: MAIL_USERNAME,
@@ -17,12 +18,18 @@ function sendMail(email, token) {
   const message = {
     to: email,
     from: MAIL_SENDER,
-    subject: 'Learn node.js it easy',
-    html: `Thank you for registration, to confirm your email please go to this link <a href="http://localhost:3000/api/users/verify/${token}">Confirm registration</a>`,
-    text: `Thank you for registration, to confirm your email please go to this link http://localhost:3000/api/users/verify/${token}`,
+    subject: 'Verefy your email',
+    html: `Thank you for registration, to confirm your email please use this code:   ${token}`,
+    text: `Thank you for registration, to confirm your email please use this code:   ${token}`,
   };
 
-  return transport.sendMail(message);
+  return transport.sendMail(message, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 }
 
 export default { sendMail };
