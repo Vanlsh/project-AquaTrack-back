@@ -4,16 +4,16 @@ content:
     schema:
       type: object
        required:
-        # - status
-        # - message
+        - status
+        - message
         - data
       properties:
-        # status:
-        #   type: integer
-        #   example: 200
-        # message:
-        #   type: string
-        #   example: Successfully login 
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Successfully login 
         data:
           type: object
           properties:

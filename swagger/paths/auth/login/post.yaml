@@ -6,7 +6,7 @@ description: Log in a user
 security:
   - bearerAuth: []
 requestBody:
-  # required: true
+  required: true
   content:
     application/json:
       schema:

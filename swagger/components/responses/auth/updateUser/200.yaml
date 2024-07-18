@@ -3,14 +3,17 @@ content:
   application/json:
     schema:
       type: object
+      required:
+        - status
+        - message
+        - data
       properties:
         status:
-          type: number
+          type: integer
           example: 200
         message:
           type: string
           example: OK
         data:
           type: object
-          $ref:
-            ../../../schemas/user.yaml
+          $ref: ../../../schemas/user.yaml

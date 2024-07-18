@@ -6,20 +6,21 @@ description: 'Patch a user with payload'
 security:
   - bearerAuth: []
 requestBody:
+  required: true
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
-        required:
-          - token
+        # required:
+        #   - token
         properties:
-          token:
-            type: string
-            example: '84279rnc9rq24r'
-          _id:
-            description: "User's id"
-            type: string
-            example: 65e4decdd286b30065d54af9
+          # token:
+          #   type: string
+          #   example: '84279rnc9rq24r'
+          # _id:
+          #   description: "User's id"
+          #   type: string
+          #   example: 65e4decdd286b30065d54af9
           email:
             description: "User's email"
             type: string
@@ -51,14 +52,16 @@ requestBody:
           gender:
             description: "User's gender"
             type: string
-            enum: ['women', 'men']
-          photo:
-            description: "Link to user's photo"
-            type: string
-            example: ''
+            enum: ['woman', 'man']
+          # photo:
+          #   description: "Link to user's photo"
+          #   type: string
+          #   example: ''
 
 responses:
   '200':
     $ref: ../../../components/responses/auth/updateUser/200.yaml
-  '500':
+  '401':
     $ref: ../../../components/responses/auth/updateUser/401.yaml
+  '400':
+    $ref: ../../../components/responses/auth/updateUser/400.yaml
