@@ -8,3 +8,5 @@ security:
 responses:
   '204':
     description: No content
+  '401':
+    $ref: ../../../components/responses/auth/logout/401.yaml

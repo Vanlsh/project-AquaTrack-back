@@ -1,9 +1,9 @@
-description: Successfully register!
+description: Successfully fefresh
 content:
   application/json:
     schema:
       type: object
-       required:
+      required:
         # - status
         # - message
         - data
@@ -13,13 +13,10 @@ content:
         #   example: 200
         # message:
         #   type: string
-        #   example: Successfully login 
+        #   example: Successfully refresh
         data:
           type: object
           properties:
             token:
               type: string
               example: '6IkpXVCJ9.eyJpZCI'
-            user:
-              type: object
-              $ref: ../../../schemas/user.yaml 

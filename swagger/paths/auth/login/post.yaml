@@ -6,7 +6,7 @@ description: Log in a user
 security:
   - bearerAuth: []
 requestBody:
-  required: true
+  # required: true
   content:
     application/json:
       schema:
@@ -24,5 +24,5 @@ requestBody:
 responses:
   '200':
     $ref: ../../../components/responses/auth/login/200.yaml
-  '500':
+  '401':
     $ref: ../../../components/responses/auth/login/401.yaml

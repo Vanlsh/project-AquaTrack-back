@@ -10,13 +10,13 @@ content:
       properties:
         status:
           type: integer
-          example: 409
+          example: 400
         message:
           type: string
-          example: 'ConflictError'
+          example: 'Bad request'
         data:
           type: object
           properties:
             message:
                   type: string
-                  example: 'Email in use'
+                  example: 'Password is not allowed to be empty'

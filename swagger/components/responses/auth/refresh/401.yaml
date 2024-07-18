@@ -1,22 +1,22 @@
-description: Fail register
+description: Fail refresh
 content:
   application/json:
     schema:
       type: object
-       required:
+      required:
         - status
         - message
         - data
       properties:
         status:
           type: integer
-          example: 409
+          example: 401
         message:
           type: string
-          example: 'ConflictError'
+          example: 'Unauthorized error'
         data:
           type: object
           properties:
             message:
-                  type: string
-                  example: 'Email in use'
+              type: string
+              example: 'Invalid refresh token'

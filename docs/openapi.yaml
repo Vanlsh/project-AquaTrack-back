@@ -28,13 +28,13 @@ paths:
   /users/logout:
     post:
       $ref: ../swagger/paths/auth/logout/post.yaml
-  /users/current:
+  /users/info:
     get:
       $ref: ../swagger/paths/auth/info/get.yaml
   /users/count:
     get:
       $ref: ../swagger/paths/auth/getUserCount/get.yaml
-  /users/info/avatars:
+  /users/photo:
     patch:
       $ref: ../swagger/paths/auth/avatar/patch.yaml
   /users/info:
