@@ -78,6 +78,7 @@ export const currentUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   const {
+    email,
     name,
     weight,
     dailyActiveTime,
@@ -86,6 +87,7 @@ export const updateUser = async (req, res, next) => {
     photo,
   } = await updateUserDetails(req.user.id, req.body);
   res.json({
+    email,
     name,
     weight,
     dailyActiveTime,
