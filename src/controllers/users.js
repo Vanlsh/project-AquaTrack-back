@@ -35,7 +35,6 @@ export const login = async (req, res, next) => {
   res.status(200).json({
     token: tokens.accessToken,
     user: {
-      id: user._id,
       email: user.email,
       name: user.name,
       weight: user.weight,
