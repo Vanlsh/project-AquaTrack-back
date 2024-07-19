@@ -19,9 +19,9 @@ export const loginUserSchema = Joi.object({
 
 export const userSchema = Joi.object({
   name: Joi.string().trim(),
-  weight: Joi.number().positive(),
-  dailyActiveTime: Joi.number().positive(),
-  dailyWaterConsumption: Joi.number().positive(),
+  weight: Joi.number().min(0),
+  dailyActiveTime: Joi.number().min(0),
+  dailyWaterConsumption: Joi.number().min(0),
   gender: Joi.string().valid('woman', 'man'),
 })
   .min(1)
