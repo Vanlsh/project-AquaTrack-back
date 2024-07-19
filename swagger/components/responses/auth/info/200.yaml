@@ -1,11 +1,5 @@
-description: Successfully get info
+description: Successfully update
 content:
   application/json:
     schema:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          type: object
-          $ref: ../../../schemas/user.yaml
+      $ref: ../../../schemas/user.yaml

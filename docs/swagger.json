@@ -807,15 +807,15 @@
       "user": {
         "type": "object",
         "required": [
-          "_id",
-          "email"
+          "email",
+          "name",
+          "weight",
+          "dailyActiveTime",
+          "dailyWaterConsumption",
+          "gender",
+          "photo"
         ],
         "properties": {
-          "_id": {
-            "description": "User's id",
-            "type": "string",
-            "example": "65e4decdd286b30065d54af9"
-          },
           "email": {
             "description": "User's email",
             "type": "string",
@@ -1052,18 +1052,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "data"
-              ],
               "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "token": {
-                      "type": "string",
-                      "example": "6IkpXVCJ9.eyJpZCI"
-                    }
-                  }
+                "token": {
+                  "type": "string",
+                  "example": "6IkpXVCJ9.eyJpZCI"
                 }
               }
             }
@@ -1139,20 +1131,11 @@
         }
       },
       "200-3": {
-        "description": "Successfully get info",
+        "description": "Successfully update",
         "content": {
           "application/json": {
             "schema": {
-              "type": "object",
-              "required": [
-                "data"
-              ],
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/user"
-                }
-              }
+              "$ref": "#/components/schemas/user"
             }
           }
         }
@@ -1285,14 +1268,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "count": {
-                      "type": "string",
-                      "example": "5"
-                    }
-                  }
+                "count": {
+                  "type": "string",
+                  "example": "5"
                 }
               }
             }
@@ -1334,18 +1312,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "data"
-              ],
               "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "photo": {
-                      "type": "string",
-                      "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
-                    }
-                  }
+                "photo": {
+                  "type": "string",
+                  "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
                 }
               }
             }

@@ -4,9 +4,6 @@ content:
     schema:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            count:
-              type: string
-              example: '5'
+        count:
+          type: string
+          example: '5'

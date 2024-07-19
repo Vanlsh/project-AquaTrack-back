@@ -11,28 +11,11 @@ requestBody:
     application/json:
       schema:
         type: object
-        # required:
-        #   - token
         properties:
-          # token:
-          #   type: string
-          #   example: '84279rnc9rq24r'
-          # _id:
-          #   description: "User's id"
-          #   type: string
-          #   example: 65e4decdd286b30065d54af9
           email:
             description: "User's email"
             type: string
             example: user@email.com
-          # createdAt:
-          #   description: "User's create date"
-          #   type: string
-          #   example: 2024-06-26T20:15:31.235Z
-          # updatedAt:
-          #   description: "User's update date"
-          #   type: string
-          #   example: 2024-06-26T20:15:31.235Z
           name:
             description: "User's name"
             type: string
@@ -53,10 +36,6 @@ requestBody:
             description: "User's gender"
             type: string
             enum: ['woman', 'man']
-          # photo:
-          #   description: "Link to user's photo"
-          #   type: string
-          #   example: ''
 
 responses:
   '200':
