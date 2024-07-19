@@ -126,7 +126,7 @@ export const uploadAvatarService = async (userId, urlPhoto) => {
   const { value } = await User.findByIdAndUpdate(
     { _id: userId },
     { photo: urlPhoto },
-    { includeResultMetadata: true },
+    { new: true, includeResultMetadata: true },
   );
 
   return { photo: value.photo };
