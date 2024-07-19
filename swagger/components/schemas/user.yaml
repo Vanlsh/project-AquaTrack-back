@@ -44,4 +44,4 @@ properties:
   photo:
     description: "Link to user's photo"
     type: string
-    example: ''
+    example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'

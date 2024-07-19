@@ -36,7 +36,7 @@ paths:
       $ref: ../swagger/paths/auth/getUserCount/get.yaml
   /users/photo:
     patch:
-      $ref: ../swagger/paths/auth/avatar/patch.yaml
+      $ref: ../swagger/paths/auth/photo/patch.yaml
   /users/info:
     patch:
       $ref: ../swagger/paths/auth/info/patch.yaml

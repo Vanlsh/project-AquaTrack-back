@@ -1,11 +1,11 @@
-description: Successfully count
+description: Successfully get count
 content:
   application/json:
     schema:
       type: object
       properties:
         status:
-          type: number
+          type: integer
           example: 200
         message:
           type: string
@@ -15,4 +15,4 @@ content:
           properties:
             count:
               type: string
-              example: "5"
+              example: '5'

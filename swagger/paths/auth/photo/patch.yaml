@@ -8,21 +8,23 @@ security:
 requestBody:
   required: true
   content:
-    application/json:
+    multipart/form-data::
       schema:
         type: object
         required:
-          - token
-          - avatar
+          # - token
+          - photo
         properties:
-          token:
-            type: string
-            example: '84279rnc9rq24r'
-          avatar:
+          # token:
+          #   type: string
+          #   example: '84279rnc9rq24r'
+          photo:
             type: string
             format: binary
 responses:
   '200':
     $ref: ../../../components/responses/auth/uploadAvatar/200.yaml
-  '500':
+  '401':
     $ref: ../../../components/responses/auth/uploadAvatar/401.yaml
+  '400':
+    $ref: ../../../components/responses/auth/uploadAvatar/400.yaml

@@ -5,7 +5,7 @@ content:
       type: object
       properties:
         status:
-          type: number
+          type: integer
           example: 200
         message:
           type: string
@@ -13,9 +13,6 @@ content:
         data:
           type: object
           properties:
-            _id:
-              type: string
-              example: "6694746"
             photo:
               type: string
-              example: "/avatars/IMG.png"
+              example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
