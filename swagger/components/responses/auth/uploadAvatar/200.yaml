@@ -3,13 +3,9 @@ content:
   application/json:
     schema:
       type: object
+      required:
+        - data
       properties:
-        status:
-          type: integer
-          example: 200
-        message:
-          type: string
-          example: OK
         data:
           type: object
           properties:

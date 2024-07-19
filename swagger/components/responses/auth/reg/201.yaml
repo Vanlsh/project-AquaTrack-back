@@ -4,16 +4,8 @@ content:
     schema:
       type: object
       required:
-        - status
-        - message
         - data
       properties:
-        status:
-          type: integer
-          example: 201
-        message:
-          type: string
-          example: Successfully register a user
         data:
           type: object
           properties:

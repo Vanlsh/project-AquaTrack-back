@@ -4,16 +4,8 @@ content:
     schema:
       type: object
       required:
-        - status
-        - message
         - data
       properties:
-        status:
-          type: integer
-          example: 200
-        message:
-          type: string
-          example: Successfully get info
         data:
           type: object
           $ref: ../../../schemas/user.yaml

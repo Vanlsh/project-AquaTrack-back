@@ -12,13 +12,9 @@ requestBody:
       schema:
         type: object
         required:
-          # - token
-          - photo
+          - avatar
         properties:
-          # token:
-          #   type: string
-          #   example: '84279rnc9rq24r'
-          photo:
+          avatar:
             type: string
             format: binary
 responses:

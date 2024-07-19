@@ -305,10 +305,10 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "photo"
+                  "avatar"
                 ],
                 "properties": {
-                  "photo": {
+                  "avatar": {
                     "type": "string",
                     "format": "binary"
                   }
@@ -714,7 +714,7 @@
             }
           },
           "401": {
-            "$ref": "#/components/responses/401-5"
+            "$ref": "#/components/responses/401-7"
           }
         }
       }
@@ -865,19 +865,9 @@
             "schema": {
               "type": "object",
               "required": [
-                "status",
-                "message",
                 "data"
               ],
               "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Successfully login"
-                },
                 "data": {
                   "type": "object",
                   "properties": {
@@ -903,19 +893,9 @@
             "schema": {
               "type": "object",
               "required": [
-                "status",
-                "message",
                 "data"
               ],
               "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 201
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Successfully register a user"
-                },
                 "data": {
                   "type": "object",
                   "properties": {
@@ -1073,19 +1053,9 @@
             "schema": {
               "type": "object",
               "required": [
-                "status",
-                "message",
                 "data"
               ],
               "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Successfully refresh"
-                },
                 "data": {
                   "type": "object",
                   "properties": {
@@ -1175,19 +1145,9 @@
             "schema": {
               "type": "object",
               "required": [
-                "status",
-                "message",
                 "data"
               ],
               "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Successfully get info"
-                },
                 "data": {
                   "type": "object",
                   "$ref": "#/components/schemas/user"
@@ -1238,19 +1198,9 @@
             "schema": {
               "type": "object",
               "required": [
-                "status",
-                "message",
                 "data"
               ],
               "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "OK"
-                },
                 "data": {
                   "type": "object",
                   "$ref": "#/components/schemas/user"
@@ -1335,14 +1285,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Created"
-                },
                 "data": {
                   "type": "object",
                   "properties": {
@@ -1392,15 +1334,10 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "data"
+              ],
               "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "OK"
-                },
                 "data": {
                   "type": "object",
                   "properties": {
