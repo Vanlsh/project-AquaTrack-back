@@ -130,15 +130,13 @@ export const getWaterPrDay = async (userId, timestamp) => {
   };
 };
 
-// Функція для обчислення початку і кінця тижня на основі будь-якої дати
+// Функція для обчислення початку і кінця тижня
 const getWeekRange = (date) => {
-  const dayOfWeek = date.getUTCDay(); // День тижня (0 - неділя, 1 - понеділок, ..., 6 - субота)
-  const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // Відстань до понеділка
   const firstDayOfWeek = new Date(date);
-  firstDayOfWeek.setUTCDate(date.getUTCDate() + diffToMonday); // Обчислюємо понеділок
+  firstDayOfWeek.setUTCHours(0o0, 0o0, 0o0, 0o0);
+  firstDayOfWeek.setUTCDate(date.getUTCDate() - 6); // Обчислюємо дату шість днів назад
 
-  const lastDayOfWeek = new Date(firstDayOfWeek);
-  lastDayOfWeek.setUTCDate(firstDayOfWeek.getUTCDate() + 6); // Обчислюємо неділю
+  const lastDayOfWeek = new Date(date); // Встановлюємо кінцеву дату як передану дату
 
   return { firstDayOfWeek, lastDayOfWeek };
 };
