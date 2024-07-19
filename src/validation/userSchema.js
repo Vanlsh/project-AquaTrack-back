@@ -18,6 +18,7 @@ export const loginUserSchema = Joi.object({
 });
 
 export const userSchema = Joi.object({
+  email: Joi.string().email(),
   name: Joi.string().trim(),
   weight: Joi.number().min(0),
   dailyActiveTime: Joi.number().min(0),
