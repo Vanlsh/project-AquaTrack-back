@@ -137,6 +137,7 @@ const getWeekRange = (date) => {
   firstDayOfWeek.setUTCDate(date.getUTCDate() - 6); // Обчислюємо дату шість днів назад
 
   const lastDayOfWeek = new Date(date); // Встановлюємо кінцеву дату як передану дату
+  lastDayOfWeek.setUTCHours(23, 59, 59, 999);
 
   return { firstDayOfWeek, lastDayOfWeek };
 };
