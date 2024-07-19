@@ -130,6 +130,89 @@ export const getWaterPrDay = async (userId, timestamp) => {
   };
 };
 
+// Функція для обчислення початку і кінця тижня на основі будь-якої дати
+const getWeekRange = (date) => {
+  const dayOfWeek = date.getUTCDay(); // День тижня (0 - неділя, 1 - понеділок, ..., 6 - субота)
+  const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // Відстань до понеділка
+  const firstDayOfWeek = new Date(date);
+  firstDayOfWeek.setUTCDate(date.getUTCDate() + diffToMonday); // Обчислюємо понеділок
+
+  const lastDayOfWeek = new Date(firstDayOfWeek);
+  lastDayOfWeek.setUTCDate(firstDayOfWeek.getUTCDate() + 6); // Обчислюємо неділю
+
+  return { firstDayOfWeek, lastDayOfWeek };
+};
+
+export const getWaterPrWeek = async (userId, timestamp) => {
+  const date = new Date(parseInt(timestamp));
+
+  // Отримуємо початок і кінець тижня
+  const { firstDayOfWeek, lastDayOfWeek } = getWeekRange(date);
+
+  // Конвертуємо в Unix timestamp
+  const startOfDayOfWeekTimestamp = Math.floor(firstDayOfWeek.getTime());
+  const endOfDayOfWeekTimestamp = Math.floor(lastDayOfWeek.getTime());
+
+  // Знаходимо записи для даного користувача за тиждень
+  const perDay = await WaterCollection.find({
+    owner: userId,
+    date: {
+      $gte: startOfDayOfWeekTimestamp,
+      $lte: endOfDayOfWeekTimestamp,
+    },
+  }).lean();
+
+  // Якщо немає записів, повертаємо порожні значення
+  if (!perDay || perDay.length === 0) {
+    // Формуємо масив результатів з порожніми значеннями
+    const result = Array.from({ length: 7 }, (_, i) => {
+      const day = new Date(firstDayOfWeek);
+      day.setUTCDate(firstDayOfWeek.getUTCDate() + i);
+      return {
+        date: day.getTime().toString(),
+        amount: 0,
+        percentage: 0,
+      };
+    });
+
+    return { result, length: result.length };
+  }
+
+  // Групуємо записи за днями
+  const groupedByDate = {};
+  perDay.forEach(({ date, amount, percentage }) => {
+    const day = new Date(parseInt(date)).getUTCDate();
+    if (!groupedByDate[day]) {
+      groupedByDate[day] = {
+        amount: 0,
+        date: date,
+        percent: 0,
+      };
+    }
+    groupedByDate[day].amount += amount;
+    groupedByDate[day].percent += percentage; // Додаємо відсоток для кожного прийому
+  });
+
+  // Формуємо масив результатів на основі кількості днів у тижні
+  const result = Array.from({ length: 7 }, (_, i) => {
+    const day = new Date(firstDayOfWeek);
+    day.setUTCDate(firstDayOfWeek.getUTCDate() + i);
+    const dayDate = day.getUTCDate();
+    const dayData = groupedByDate[dayDate] || {
+      amount: 0,
+      date: day.getTime(),
+      percent: 0,
+    };
+    return {
+      date: dayData.date.toString(),
+      amount: dayData.amount,
+      percentage: parseFloat(dayData.percent.toFixed(2)), // Перетворюємо значення відсотка на число
+    };
+  });
+
+  return { result, length: result.length };
+};
+
 // Функція для отримання останнього дня місяця з урахуванням високосного року
 const getLastDayOfMonth = (year, month) => {
   return new Date(year, month + 1, 0).getDate();

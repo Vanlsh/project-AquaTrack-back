@@ -55,6 +55,9 @@ paths:
   /water/day/{date}:
     get:
       $ref: ../swagger/paths/water/day/get.yaml
+  /water/week/{date}:
+    get:
+      $ref: ../swagger/paths/water/week/get.yaml
   /water/month/{date}:
     get:
       $ref: ../swagger/paths/water/month/get.yaml
