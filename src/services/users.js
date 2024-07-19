@@ -65,7 +65,8 @@ export const updateUserDetails = async (userId, data) => {
     { $set: data },
     {
       new: true,
-      fields: 'name weight dailyActiveTime dailyWaterConsumption gender photo',
+      fields:
+        'name weight dailyActiveTime dailyWaterConsumption gender photo email',
     },
   );
 
@@ -119,4 +120,14 @@ export const refreshUserSession = async (refreshToken) => {
 
 export const getUserCountService = async () => {
   return await User.countDocuments();
+};
+
+export const uploadAvatarService = async (userId, urlPhoto) => {
+  const { value } = await User.findByIdAndUpdate(
+    { _id: userId },
+    { photo: urlPhoto },
+    { includeResultMetadata: true },
+  );
+
+  return { photo: value.photo };
 };
