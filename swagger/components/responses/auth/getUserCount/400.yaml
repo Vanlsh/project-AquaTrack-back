@@ -14,5 +14,5 @@ content:
           type: object
           properties:
             message:
-                  type: string
-                  example: 'Can't get count'
+              type: string
+              example: 'Fail get count'

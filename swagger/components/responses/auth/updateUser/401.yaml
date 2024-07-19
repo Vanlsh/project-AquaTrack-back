@@ -14,9 +14,9 @@ content:
         message:
           type: string
           example: 'Unauthorized'
-         data:
+        data:
           type: object
           properties:
             message:
               type: string
-              example: 'Not authorized'  
+              example: 'Not authorized'

@@ -3,7 +3,7 @@ content:
   application/json:
     schema:
       type: object
-       required:
+      required:
         - status
         - message
         - data
@@ -13,7 +13,7 @@ content:
           example: 200
         message:
           type: string
-          example: Successfully login 
+          example: Successfully login
         data:
           type: object
           properties:
@@ -22,4 +22,4 @@ content:
               example: '6IkpXVCJ9.eyJpZCI'
             user:
               type: object
-              $ref: ../../../schemas/user.yaml 
+              $ref: ../../../schemas/user.yaml

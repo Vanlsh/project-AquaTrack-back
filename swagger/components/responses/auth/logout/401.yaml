@@ -1,4 +1,5 @@
 description: Fail logout
+content:
   application/json:
     schema:
       type: object

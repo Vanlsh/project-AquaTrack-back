@@ -3,7 +3,7 @@ content:
   application/json:
     schema:
       type: object
-       required:
+      required:
         - status
         - message
         - data
@@ -18,5 +18,5 @@ content:
           type: object
           properties:
             message:
-                  type: string
-                  example: 'Email in use'
+              type: string
+              example: 'Email in use'

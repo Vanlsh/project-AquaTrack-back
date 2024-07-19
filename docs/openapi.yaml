@@ -31,15 +31,17 @@ paths:
   /users/info:
     get:
       $ref: ../swagger/paths/auth/info/get.yaml
+    patch:
+      $ref: ../swagger/paths/auth/info/patch.yaml
   /users/count:
     get:
       $ref: ../swagger/paths/auth/getUserCount/get.yaml
   /users/photo:
     patch:
       $ref: ../swagger/paths/auth/photo/patch.yaml
-  /users/info:
-    patch:
-      $ref: ../swagger/paths/auth/info/patch.yaml
+  # /users/info:
+  #   patch:
+  #     $ref: ../swagger/paths/auth/info/patch.yaml
   /water:
     post:
       $ref: ../swagger/paths/water/create/post.yaml

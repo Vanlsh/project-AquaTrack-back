@@ -69,7 +69,7 @@
           "200": {
             "$ref": "#/components/responses/200"
           },
-          "500": {
+          "401": {
             "$ref": "#/components/responses/401"
           }
         }
@@ -89,7 +89,6 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -116,6 +115,9 @@
           "201": {
             "$ref": "#/components/responses/201"
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "409": {
             "$ref": "#/components/responses/409"
           }
@@ -127,9 +129,9 @@
         "tags": [
           "Users"
         ],
-        "summary": "Refresh session",
-        "operationId": "refreshSession",
-        "description": "Refresh session",
+        "summary": "Refresh token",
+        "operationId": "refreshToken",
+        "description": "Refresh token",
         "security": [
           {
             "bearerAuth": []
@@ -137,86 +139,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully refreshed a session!",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully refreshed a session!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "accessToken"
-                      ],
-                      "properties": {
-                        "accessToken": {
-                          "type": "string",
-                          "example": "iqwxK1cJJT+GBPLKWouzPhj2www6iirnMFExdZmA"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/200-2"
           },
           "401": {
-            "description": "- Session not found\n- Session token expired\n",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 401
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "UnauthorizedError"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "message"
-                      ],
-                      "properties": {
-                        "message": {
-                          "oneOf": [
-                            {
-                              "type": "string",
-                              "example": "Session not found"
-                            },
-                            {
-                              "type": "string",
-                              "example": "Session token expired"
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/401-2"
           }
         }
       }
@@ -237,11 +163,14 @@
         "responses": {
           "204": {
             "description": "No content"
+          },
+          "401": {
+            "$ref": "#/components/responses/401-3"
           }
         }
       }
     },
-    "/users/current": {
+    "/users/info": {
       "get": {
         "tags": [
           "Users"
@@ -256,105 +185,13 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/200-2"
-          },
-          "500": {
-            "$ref": "#/components/responses/401-2"
-          }
-        }
-      }
-    },
-    "/users/count": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Get count Users",
-        "operationId": "countUsers",
-        "description": "Retrieve the count of users",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "email",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "user@email.com"
-            }
-          },
-          {
-            "in": "query",
-            "name": "password",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "mypassword"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
             "$ref": "#/components/responses/200-3"
           },
-          "500": {
-            "$ref": "#/components/responses/500"
+          "401": {
+            "$ref": "#/components/responses/401-4"
           }
         }
-      }
-    },
-    "/users/info/avatars": {
-      "patch": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "User Avatar",
-        "operationId": "userAvatar",
-        "description": "Upload or update user avatar",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "token",
-                  "avatar"
-                ],
-                "properties": {
-                  "token": {
-                    "type": "string",
-                    "example": "84279rnc9rq24r"
-                  },
-                  "avatar": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/200-4"
-          },
-          "500": {
-            "$ref": "#/components/responses/401-3"
-          }
-        }
-      }
-    },
-    "/users/info": {
+      },
       "patch": {
         "tags": [
           "Users"
@@ -368,23 +205,12 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "token"
-                ],
                 "properties": {
-                  "token": {
-                    "type": "string",
-                    "example": "84279rnc9rq24r"
-                  },
-                  "_id": {
-                    "description": "User's id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
-                  },
                   "email": {
                     "description": "User's email",
                     "type": "string",
@@ -414,14 +240,9 @@
                     "description": "User's gender",
                     "type": "string",
                     "enum": [
-                      "women",
-                      "men"
+                      "woman",
+                      "man"
                     ]
-                  },
-                  "photo": {
-                    "description": "Link to user's photo",
-                    "type": "string",
-                    "example": ""
                   }
                 }
               }
@@ -430,10 +251,81 @@
         },
         "responses": {
           "200": {
+            "$ref": "#/components/responses/200-4"
+          },
+          "400": {
+            "$ref": "#/components/responses/400-2"
+          },
+          "401": {
+            "$ref": "#/components/responses/401-5"
+          }
+        }
+      }
+    },
+    "/users/count": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get count Users",
+        "operationId": "countUsers",
+        "description": "Retrieve the count of users",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
             "$ref": "#/components/responses/200-5"
           },
-          "500": {
-            "$ref": "#/components/responses/401-4"
+          "400": {
+            "$ref": "#/components/responses/400-3"
+          }
+        }
+      }
+    },
+    "/users/photo": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User Avatar",
+        "operationId": "userAvatar",
+        "description": "Upload or update user avatar",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data:": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "photo"
+                ],
+                "properties": {
+                  "photo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/200-6"
+          },
+          "400": {
+            "$ref": "#/components/responses/400-4"
+          },
+          "401": {
+            "$ref": "#/components/responses/401-6"
           }
         }
       }
@@ -486,10 +378,10 @@
             "$ref": "#/components/responses/201-2"
           },
           "400": {
-            "$ref": "#/components/responses/400"
+            "$ref": "#/components/responses/400-5"
           },
           "401": {
-            "$ref": "#/components/responses/401-5"
+            "$ref": "#/components/responses/401-7"
           }
         }
       }
@@ -523,7 +415,7 @@
             "$ref": "#/components/responses/200-g"
           },
           "401": {
-            "$ref": "#/components/responses/401-5"
+            "$ref": "#/components/responses/401-7"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -623,10 +515,10 @@
             "$ref": "#/components/responses/200-u"
           },
           "400": {
-            "$ref": "#/components/responses/400"
+            "$ref": "#/components/responses/400-5"
           },
           "401": {
-            "$ref": "#/components/responses/401-5"
+            "$ref": "#/components/responses/401-7"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -661,7 +553,7 @@
             "$ref": "#/components/responses/200-d"
           },
           "401": {
-            "$ref": "#/components/responses/401-5"
+            "$ref": "#/components/responses/401-7"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -751,7 +643,7 @@
             }
           },
           "401": {
-            "$ref": "#/components/responses/401-5"
+            "$ref": "#/components/responses/401-7"
           }
         }
       }
@@ -827,7 +719,7 @@
             }
           },
           "401": {
-            "$ref": "#/components/responses/401-5"
+            "$ref": "#/components/responses/401-7"
           }
         }
       }
@@ -840,6 +732,60 @@
         "scheme": "bearer"
       }
     },
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "_id",
+          "email"
+        ],
+        "properties": {
+          "_id": {
+            "description": "User's id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "email": {
+            "description": "User's email",
+            "type": "string",
+            "example": "user@email.com"
+          },
+          "name": {
+            "description": "User's name",
+            "type": "string",
+            "example": "John Doe"
+          },
+          "weight": {
+            "description": "User's weight",
+            "type": "number",
+            "example": 50
+          },
+          "dailyActiveTime": {
+            "description": "User's daily active time",
+            "type": "number",
+            "example": 2
+          },
+          "dailyWaterConsumption": {
+            "description": "User's daily water consumption",
+            "type": "number",
+            "example": 1.5
+          },
+          "gender": {
+            "description": "User's gender",
+            "type": "string",
+            "enum": [
+              "woman",
+              "man"
+            ]
+          },
+          "photo": {
+            "description": "Link to user's photo",
+            "type": "string",
+            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+          }
+        }
+      }
+    },
     "responses": {
       "200": {
         "description": "Successfully register!",
@@ -847,14 +793,19 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
-                  "type": "number",
+                  "type": "integer",
                   "example": 200
                 },
                 "message": {
                   "type": "string",
-                  "example": "Created"
+                  "example": "Successfully login"
                 },
                 "data": {
                   "type": "object",
@@ -865,12 +816,7 @@
                     },
                     "user": {
                       "type": "object",
-                      "properties": {
-                        "email": {
-                          "type": "string",
-                          "example": "user@mail.com"
-                        }
-                      }
+                      "$ref": "#/components/schemas/user"
                     }
                   }
                 }
@@ -885,14 +831,19 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
-                  "type": "number",
+                  "type": "integer",
                   "example": 201
                 },
                 "message": {
                   "type": "string",
-                  "example": "Created"
+                  "example": "Successfully register a user"
                 },
                 "data": {
                   "type": "object",
@@ -914,26 +865,31 @@
         }
       },
       "400": {
-        "description": "Invalid input.",
+        "description": "Fail register",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
-                  "type": "number",
+                  "type": "integer",
                   "example": 400
                 },
                 "message": {
                   "type": "string",
-                  "example": "BadRequestError"
+                  "example": "Bad request"
                 },
                 "data": {
                   "type": "object",
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Error from Joi or other validation library"
+                      "example": "Password is not allowed to be empty"
                     }
                   }
                 }
@@ -948,6 +904,11 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -955,7 +916,16 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Email or password is wrong"
+                  "example": "Unauthorized error"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email or password is wrong"
+                    }
+                  }
                 }
               }
             }
@@ -997,6 +967,11 @@
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1004,32 +979,16 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Email in use"
-                }
-              }
-            }
-          }
-        }
-      },
-      "500": {
-        "description": "Fail count users",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 500
+                  "example": "ConflictError"
                 },
-                "message": {
-                  "type": "string",
-                  "enum": [
-                    "Invalid email or password",
-                    "Email is required",
-                    "\"password\" is required",
-                    "Email or password is wrong"
-                  ]
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email in use"
+                    }
+                  }
                 }
               }
             }
@@ -1037,6 +996,108 @@
         }
       },
       "200-2": {
+        "description": "Successfully fefresh",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully refresh"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "6IkpXVCJ9.eyJpZCI"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-2": {
+        "description": "Fail refresh",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized error"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid refresh token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-3": {
+        "description": "Fail logout",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized error"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not authorized"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "200-3": {
         "description": "Successfully get info",
         "content": {
           "application/json": {
@@ -1065,12 +1126,17 @@
           }
         }
       },
-      "401-2": {
+      "401-4": {
         "description": "Fail get info",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1079,21 +1145,127 @@
                 "message": {
                   "type": "string",
                   "example": "Unauthorized"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not authorized"
+                    }
+                  }
                 }
               }
             }
           }
         }
       },
-      "200-3": {
-        "description": "Successfully count",
+      "200-4": {
+        "description": "Successfully update",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "OK"
+                },
+                "data": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400-2": {
+        "description": "Fail update user info",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad request"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "At least one field must be filled"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-5": {
+        "description": "Fail update",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not authorized"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "200-5": {
+        "description": "Successfully get count",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
               "properties": {
                 "status": {
-                  "type": "number",
+                  "type": "integer",
                   "example": 200
                 },
                 "message": {
@@ -1114,7 +1286,36 @@
           }
         }
       },
-      "200-4": {
+      "400-3": {
+        "description": "Fail count users",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad request"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Fail get count"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "200-6": {
         "description": "Successfully upload Avatar",
         "content": {
           "application/json": {
@@ -1122,7 +1323,7 @@
               "type": "object",
               "properties": {
                 "status": {
-                  "type": "number",
+                  "type": "integer",
                   "example": 200
                 },
                 "message": {
@@ -1132,13 +1333,9 @@
                 "data": {
                   "type": "object",
                   "properties": {
-                    "_id": {
-                      "type": "string",
-                      "example": "6694746"
-                    },
                     "photo": {
                       "type": "string",
-                      "example": "/avatars/IMG.png"
+                      "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
                     }
                   }
                 }
@@ -1147,52 +1344,42 @@
           }
         }
       },
-      "401-3": {
-        "description": "Fail avatar",
+      "400-4": {
+        "description": "Fail upload avatar",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
-                  "type": "number",
-                  "example": 401
+                  "type": "integer",
+                  "example": 400
                 },
                 "message": {
                   "type": "string",
-                  "example": "Not authorized"
-                }
-              }
-            }
-          }
-        }
-      },
-      "200-5": {
-        "description": "Successfully update",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "number",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "OK"
+                  "example": "Bad request"
                 },
                 "data": {
                   "type": "object",
-                  "$ref": "#/components/schemas/user"
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "File not provided"
+                    }
+                  }
                 }
               }
             }
           }
         }
       },
-      "401-4": {
-        "description": "Fail update",
+      "401-6": {
+        "description": "Failed upload avatar",
         "content": {
           "application/json": {
             "schema": {
@@ -1204,7 +1391,16 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Not authorized"
+                  "example": "Unauthorized"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not authorized"
+                    }
+                  }
                 }
               }
             }
@@ -1256,7 +1452,36 @@
           }
         }
       },
-      "401-5": {
+      "400-5": {
+        "description": "Invalid input.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "BadRequestError"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error from Joi or other validation library"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-7": {
         "description": "Unauthorized, token is missing or invalid.",
         "content": {
           "application/json": {
@@ -1418,72 +1643,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "schemas": {
-      "user": {
-        "type": "object",
-        "required": [
-          "_id",
-          "email",
-          "createdAt",
-          "updatedAt"
-        ],
-        "properties": {
-          "_id": {
-            "description": "User's id",
-            "type": "string",
-            "example": "65e4decdd286b30065d54af9"
-          },
-          "email": {
-            "description": "User's email",
-            "type": "string",
-            "example": "user@email.com"
-          },
-          "createdAt": {
-            "description": "User's create date",
-            "type": "string",
-            "example": "2024-06-26T20:15:31.235Z"
-          },
-          "updatedAt": {
-            "description": "User's update date",
-            "type": "string",
-            "example": "2024-06-26T20:15:31.235Z"
-          },
-          "name": {
-            "description": "User's name",
-            "type": "string",
-            "example": "John Doe"
-          },
-          "weight": {
-            "description": "User's weight",
-            "type": "number",
-            "example": 50
-          },
-          "dailyActiveTime": {
-            "description": "User's daily active time",
-            "type": "number",
-            "example": 2
-          },
-          "dailyWaterConsumption": {
-            "description": "User's daily water consumption",
-            "type": "number",
-            "example": 1.5
-          },
-          "gender": {
-            "description": "User's gender",
-            "type": "string",
-            "enum": [
-              "woman",
-              "man"
-            ]
-          },
-          "photo": {
-            "description": "Link to user's photo",
-            "type": "string",
-            "example": ""
           }
         }
       }
