@@ -8,6 +8,7 @@ import {
   verifyUserEmail,
   resendVerificationEmail,
   getUserCountService,
+  uploadAvatarService,
 } from '../services/users.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import createHttpError from 'http-errors';
@@ -110,7 +111,8 @@ export const uploadAvatar = async (req, res, next) => {
   }
   const photo = req.file;
   const url = await saveFileToCloudinary(photo);
-  res.json({ photo: url });
+  const data = await uploadAvatarService(req.user.id, url);
+  res.json(data);
 };
 
 export const refreshTokens = async (req, res, next) => {
