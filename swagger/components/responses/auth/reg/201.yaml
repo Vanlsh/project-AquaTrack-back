@@ -3,13 +3,9 @@ content:
   application/json:
     schema:
       type: object
+      required:
+        - data
       properties:
-        status:
-          type: number
-          example: 201
-        message:
-          type: string
-          example: Created
         data:
           type: object
           properties:
@@ -18,4 +14,4 @@ content:
               properties:
                 email:
                   type: string
-                  example: "user@mail.com"
+                  example: 'user@mail.com'

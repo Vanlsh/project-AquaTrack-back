@@ -2,11 +2,10 @@ tags:
   - Users
 summary: Register User
 operationId: registerUser
-description: Register a new user
+description: 'Register a new user'
 security:
   - bearerAuth: []
 requestBody:
-  required: true
   content:
     application/json:
       schema:
@@ -26,3 +25,5 @@ responses:
     $ref: ../../../components/responses/auth/reg/201.yaml
   '409':
     $ref: ../../../components/responses/auth/reg/409.yaml
+  '400':
+    $ref: ../../../components/responses/auth/reg/400.yaml

@@ -4,18 +4,6 @@ content:
     schema:
       type: object
       properties:
-        status:
-          type: number
-          example: 200
-        message:
+        photo:
           type: string
-          example: OK
-        data:
-          type: object
-          properties:
-            _id:
-              type: string
-              example: "6694746"
-            photo:
-              type: string
-              example: "/avatars/IMG.png"
+          example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'

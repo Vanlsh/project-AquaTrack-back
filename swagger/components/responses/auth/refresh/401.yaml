@@ -1,18 +1,22 @@
-description: Failed upload avatar
+description: Fail refresh
 content:
   application/json:
     schema:
       type: object
+      required:
+        - status
+        - message
+        - data
       properties:
         status:
           type: integer
           example: 401
         message:
           type: string
-          example: 'Unauthorized'
+          example: 'Unauthorized error'
         data:
           type: object
           properties:
             message:
               type: string
-              example: 'Not authorized'
+              example: 'Invalid refresh token'

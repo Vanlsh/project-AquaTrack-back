@@ -3,13 +3,9 @@ content:
   application/json:
     schema:
       type: object
+      required:
+        - data
       properties:
-        status:
-          type: number
-          example: 200
-        message:
-          type: string
-          example: Created
         data:
           type: object
           properties:
@@ -18,7 +14,4 @@ content:
               example: '6IkpXVCJ9.eyJpZCI'
             user:
               type: object
-              properties:
-                email:
-                  type: string
-                  example: 'user@mail.com'
+              $ref: ../../../schemas/user.yaml

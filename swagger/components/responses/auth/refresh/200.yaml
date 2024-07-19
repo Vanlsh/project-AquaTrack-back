@@ -1,9 +1,9 @@
-description: Successfully get count
+description: Successfully fefresh
 content:
   application/json:
     schema:
       type: object
       properties:
-        count:
+        token:
           type: string
-          example: '5'
+          example: '6IkpXVCJ9.eyJpZCI'

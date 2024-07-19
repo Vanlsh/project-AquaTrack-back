@@ -1,4 +1,4 @@
-description: Fail get info
+description: Fail update user info
 content:
   application/json:
     schema:
@@ -10,13 +10,13 @@ content:
       properties:
         status:
           type: integer
-          example: 401
+          example: 400
         message:
           type: string
-          example: 'Unauthorized'
+          example: 'Bad request'
         data:
           type: object
           properties:
             message:
-              type: string
-              example: 'Not authorized'
+                  type: string
+                  example: 'At least one field must be filled'

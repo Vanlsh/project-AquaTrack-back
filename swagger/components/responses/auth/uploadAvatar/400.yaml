@@ -1,18 +1,22 @@
-description: Failed upload avatar
+description: Fail upload avatar
 content:
   application/json:
     schema:
       type: object
+      required:
+        - status
+        - message
+        - data
       properties:
         status:
           type: integer
-          example: 401
+          example: 400
         message:
           type: string
-          example: 'Unauthorized'
+          example: 'Bad request'
         data:
           type: object
           properties:
             message:
               type: string
-              example: 'Not authorized'
+              example: 'File not provided'

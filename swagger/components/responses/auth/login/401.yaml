@@ -3,10 +3,20 @@ content:
   application/json:
     schema:
       type: object
+      required:
+        - status
+        - message
+        - data
       properties:
         status:
           type: integer
           example: 401
         message:
           type: string
-          example: 'Email or password is wrong'
+          example: 'Unauthorized error'
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              example: 'Email or password is wrong'
