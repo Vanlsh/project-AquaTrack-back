@@ -87,7 +87,7 @@ export const getWaterPrDay = async (userId, timestamp) => {
 
   // We get the start of the day
   const startOfDay = new Date(date);
-  startOfDay.setUTCHours(0, 0, 0, 0);
+  startOfDay.setUTCHours(0o0, 0o0, 0o0, 0o0);
 
   // We get the end of the day
   const endOfDay = new Date(date);
