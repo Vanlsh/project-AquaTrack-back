@@ -8,7 +8,7 @@ export const createWater = async (payload) => {
   }
 
   const percentage = ((amount / (norm * 1000)) * 100).toFixed(2);
-  const contact = await WaterCollection.create({
+  const water = await WaterCollection.create({
     amount,
     date,
     norm,
@@ -16,20 +16,20 @@ export const createWater = async (payload) => {
     owner: userId,
   });
 
-  const { _id, owner, ...other } = contact._doc;
+  const { _id, owner, ...other } = water._doc;
   const data = { id: _id, ...other };
   return data;
 };
 
 export const getWaterById = async (waterId, userId) => {
-  const contact = await WaterCollection.findOne({
+  const water = await WaterCollection.findOne({
     _id: waterId,
     owner: userId,
   });
 
-  if (!contact) return null;
+  if (!water) return null;
 
-  const { _id, owner, ...other } = contact._doc;
+  const { _id, owner, ...other } = water._doc;
   const data = { id: _id, ...other };
   return data;
 };
@@ -84,13 +84,14 @@ export const deleteWaterById = async (waterId, userId) => {
 
 export const getWaterPrDay = async (userId, timestamp) => {
   const date = new Date(parseInt(timestamp));
+
   // We get the start of the day
   const startOfDay = new Date(date);
-  startOfDay.setHours(0, 0, 0, 0);
+  startOfDay.setUTCHours(0, 0, 0, 0);
 
   // We get the end of the day
   const endOfDay = new Date(date);
-  endOfDay.setHours(23, 59, 59, 999);
+  endOfDay.setUTCHours(23, 59, 59, 999);
 
   // Convert back to Unix timestamp
   const startOfDayTimestamp = startOfDay.getTime();
