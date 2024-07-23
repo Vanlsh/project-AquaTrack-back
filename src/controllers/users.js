@@ -21,7 +21,8 @@ import bcrypt from 'bcryptjs';
 export const googleAuth = async (req, res, next) => {
   const stringifiedParams = queryString.stringify({
     client_id: process.env.GOOGLE_CLIENT_ID,
-    redirect_uri: 'http://localhost:3000/users/google-redirect',
+    redirect_uri:
+      'https://project-aquatrack-back.onrender.com/users/google-redirect',
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile',
