@@ -10,6 +10,8 @@ import {
   uploadAvatar,
   getUserCount,
   refreshTokens,
+  googleAuth,
+  googleRedirect,
 } from '../controllers/users.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import {
@@ -23,6 +25,10 @@ import uploadMiddleware from '../middlewares/upload.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = Router();
+//googleauth
+router.get('/google', ctrlWrapper(googleAuth));
+router.get('/google-redirect', ctrlWrapper(googleRedirect));
+
 //register
 router.post(
   '/register',
